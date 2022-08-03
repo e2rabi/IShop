@@ -3,11 +3,12 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
 	id 'java-library'
 }
-
-repositories {
-	mavenCentral()
+jar {
+	enabled = true
 }
-
+bootJar{
+	enabled = false
+}
 dependencyManagement {
 	imports {
 		mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES

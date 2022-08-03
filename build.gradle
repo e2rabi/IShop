@@ -1,0 +1,16 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.2'
+    id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+}
+
+subprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+configure(subprojects.findAll {it.name != 'ishop-common' && it.name != 'ishop-modules' }) {
+    apply plugin: "java"
+    apply plugin: "org.springframework.boot"
+    apply plugin: "io.spring.dependency-management"
+}
+
