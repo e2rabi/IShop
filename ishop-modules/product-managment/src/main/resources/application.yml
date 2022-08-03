@@ -1,7 +1,7 @@
 
 
 elastic:
-  hostname: 137.184.244.199:9200
+  hostname: 127.0.0.1:9200
 
 
 #docker run -p 9200:9200 --name elasticsearch bitnami/elasticsearch:latest

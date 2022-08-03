@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Data
 @Builder
-@Document(indexName = "productIndex")
+@Document(indexName = "product-index")
 public class Product {
   @Id
   private UUID id;
