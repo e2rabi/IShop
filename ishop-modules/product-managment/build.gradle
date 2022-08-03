@@ -2,6 +2,7 @@
 dependencies {
 	implementation project(':ishop-common:common-sdk')
 	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.data:spring-data-elasticsearch'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
