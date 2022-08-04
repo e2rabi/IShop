@@ -4,7 +4,6 @@
 /build/www/**
 /src/test/javascript/coverage/
 /src/test/javascript/PhantomJS*/
-
 ######################
 # Node
 ######################
@@ -74,7 +73,11 @@ local.properties
 ######################
 .gradle/
 /build/
-
+/ishop-modules/authorization/build/**
+/ishop-modules/order-managment/build/**
+/ishop-modules/product-managment/build/**
+/ishop-modules/shipping-managment/build/**
+/ishop-modules/customer-managment/build/**
 ######################
 # Package Files
 ######################

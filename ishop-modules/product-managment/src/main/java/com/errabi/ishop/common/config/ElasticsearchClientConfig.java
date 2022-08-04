@@ -1,4 +1,4 @@
-package com.errabi.ishop.config;
+package com.errabi.ishop.common.config;
 
 import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.annotation.Value;

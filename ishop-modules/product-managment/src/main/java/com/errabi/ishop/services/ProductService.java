@@ -1,7 +1,7 @@
 package com.errabi.ishop.services;
 
 import com.errabi.ishop.entities.Product;
-import com.errabi.ishop.exception.IShopNotFoundException;
+import com.errabi.common.exception.IShopNotFoundException;
 import com.errabi.ishop.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

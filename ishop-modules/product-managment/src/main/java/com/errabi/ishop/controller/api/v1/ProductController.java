@@ -1,9 +1,11 @@
 package com.errabi.ishop.controller.api.v1;
 
+import com.errabi.ishop.controller.openapi.ProductOpenApi;
 import com.errabi.ishop.entities.Product;
-import com.errabi.ishop.exception.IShopNotFoundException;
+import com.errabi.common.exception.IShopNotFoundException;
 import com.errabi.ishop.services.ProductService;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,16 +14,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+import static lombok.AccessLevel.PRIVATE;
+
 @RestController
 @RequiredArgsConstructor
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 @RequestMapping("/api/v1/products")
-public class ProductController {
-    private final ProductService productService ;
+public class ProductController implements ProductOpenApi {
 
+    ProductService productService ;
+
+    @Override
     @GetMapping("/{productId}")
     public ResponseEntity<Product> getProductById(@PathVariable("productId") UUID productId) throws IShopNotFoundException {
         return new ResponseEntity<>(productService.findProductById(productId), HttpStatus.OK);
     }
+
     @PutMapping(("/{productId}"))
     public ResponseEntity<Void> updateProduct(@PathVariable("productId") UUID productId,@RequestBody Product Product ){
         productService.updateProduct(productId,Product);
