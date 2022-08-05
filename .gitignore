@@ -79,6 +79,8 @@ local.properties
 /ishop-modules/shipping-managment/build/**
 /ishop-modules/customer-managment/build/**
 /ishop-common/common-sdk/build/**
+/ishop-common/build/**
+/ishop-modules/build/**
 ######################
 # Package Files
 ######################
@@ -143,3 +145,4 @@ Desktop.ini
 ######################
 .eslintcache
 /.idea/
+/ishop-common/build/
