@@ -8,9 +8,10 @@ spring:
     username: postgres
     password: admin
   jpa:
-    properties:
-       hibernate:
-         ddl-auto: create
+    show-sql: true
+    hibernate:
+         format_sql: true
+         ddl-auto: update
          dialect: org.hibernate.dialect.PostgreSQLDialect
 elastic:
   hostname: 127.0.0.1:9200
