@@ -1,8 +1,19 @@
 
-
+spring:
+  hikari:
+    connectionTimeout: 20000
+    maximumPoolSize: 5
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: admin
+  jpa:
+    properties:
+       hibernate:
+         ddl-auto: create
+         dialect: org.hibernate.dialect.PostgreSQLDialect
 elastic:
   hostname: 127.0.0.1:9200
-
 springdoc:
   api-docs:
     path: /api-docs
