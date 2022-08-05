@@ -1,8 +1,10 @@
 package com.errabi.ishop.services;
 
+import com.errabi.common.model.ProductDto;
 import com.errabi.ishop.entities.Product;
 import com.errabi.common.exception.IShopNotFoundException;
 import com.errabi.ishop.repositories.ProductRepository;
+import com.errabi.ishop.services.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.common.unit.Fuzziness;
@@ -32,19 +34,22 @@ public class ProductService {
 
     private final ElasticsearchOperations elasticsearchOperations ;
     private final ProductRepository productRepository;
+    private final ProductMapper mapper;
+
     private static final  String PRODUCT_INDEX = "product-index";
 
-    public Product saveProduct(Product dto) {
+    public ProductDto saveProduct(ProductDto dto) {
         log.info("Save new product {}",dto);
+        var entity = mapper.toEntity(dto);
         var indexQuery = new IndexQueryBuilder()
-                .withId(dto.getId().toString())
-                .withObject(dto)
+                .withId(entity.getId().toString())
+                .withObject(entity)
                 .build();
         elasticsearchOperations.index(indexQuery, IndexCoordinates.of(PRODUCT_INDEX));
-        return dto;
+        return mapper.toModel(entity);
     }
 
-    public Product findProductById(UUID id) throws IShopNotFoundException {
+    public ProductDto findProductById(UUID id) throws IShopNotFoundException {
         log.info("Get product by id : {}",id);
         QueryBuilder queryBuilder =
                 QueryBuilders
@@ -54,19 +59,20 @@ public class ProductService {
                 .build();
         SearchHit<Product> productDtoSearchHits =  elasticsearchOperations.searchOne(searchQuery,Product.class, IndexCoordinates.of(PRODUCT_INDEX));
         if( productDtoSearchHits != null ){
-            return productDtoSearchHits.getContent();
+            return mapper.toModel(productDtoSearchHits.getContent());
         } else{
             throw new IShopNotFoundException("Product not found");
         }
     }
 
-    public List<Product> findAllProduct(int page, int pageSize) {
+    public List<ProductDto> findAllProduct(int page, int pageSize) {
         log.info("Getting all product...");
         Pageable of = PageRequest.of(page, pageSize);
         return StreamSupport.stream(productRepository.findAll(of).spliterator(),false)
+                .map(mapper::toModel)
                 .collect(Collectors.toList());
     }
-    public void updateProduct(UUID id, Product dto) {
+    public void updateProduct(UUID id, ProductDto dto) {
         log.info("Update product with id : {}",id);
         Optional<Product> product = productRepository.findById(id);
         product.ifPresentOrElse(e->{
@@ -81,7 +87,7 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    public List<Product> processSearch(String query,int page,int pageSize) {
+    public List<ProductDto> processSearch(String query,int page,int pageSize) {
         log.info("Search with query {}", query);
         QueryBuilder queryBuilder =
                 QueryBuilders
@@ -96,8 +102,10 @@ public class ProductService {
                 elasticsearchOperations
                         .search(searchQuery, Product.class,
                                 IndexCoordinates.of(PRODUCT_INDEX));
-        return productHits.stream().map(searchHit ->searchHit.getContent())
-                .collect(Collectors.toList());
+        return productHits.stream()
+                            .map(searchHit ->searchHit.getContent())
+                            .map(mapper::toModel)
+                            .collect(Collectors.toList());
     }
 
     public List<String> fetchSuggestions(String query) {

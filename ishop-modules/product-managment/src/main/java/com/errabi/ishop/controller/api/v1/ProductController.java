@@ -1,7 +1,7 @@
 package com.errabi.ishop.controller.api.v1;
 
+import com.errabi.common.model.ProductDto;
 import com.errabi.ishop.controller.openapi.ProductOpenApi;
-import com.errabi.ishop.entities.Product;
 import com.errabi.common.exception.IShopNotFoundException;
 import com.errabi.ishop.services.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -26,12 +26,12 @@ public class ProductController implements ProductOpenApi {
 
     @Override
     @GetMapping("/{productId}")
-    public ResponseEntity<Product> getProductById(@PathVariable("productId") UUID productId) throws IShopNotFoundException {
+    public ResponseEntity<ProductDto> getProductById(@PathVariable("productId") UUID productId) throws IShopNotFoundException {
         return new ResponseEntity<>(productService.findProductById(productId), HttpStatus.OK);
     }
 
     @PutMapping(("/{productId}"))
-    public ResponseEntity<Void> updateProduct(@PathVariable("productId") UUID productId,@RequestBody Product Product ){
+    public ResponseEntity<Void> updateProduct(@PathVariable("productId") UUID productId,@RequestBody ProductDto Product ){
         productService.updateProduct(productId,Product);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -40,8 +40,9 @@ public class ProductController implements ProductOpenApi {
     public void deleteProduct(@PathVariable("productId") UUID productId){
         productService.deleteProduct(productId);
     }
+
     @PostMapping
-    public ResponseEntity<Product> saveProduct(@RequestBody  Product  Product){
+    public ResponseEntity<ProductDto> saveProduct(@RequestBody  ProductDto  Product){
         var newProduct = productService.saveProduct(Product);
         var headers = new HttpHeaders();
         headers.add("location","/api/v1/product/"+newProduct.getId().toString());
@@ -49,7 +50,7 @@ public class ProductController implements ProductOpenApi {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<Product>> getAllProduct(@RequestParam(required = false) int page,@RequestParam(required = false) int pageSize){
+    public ResponseEntity<List<ProductDto>> getAllProduct(@RequestParam(required = false) int page,@RequestParam(required = false) int pageSize){
         return new ResponseEntity<>(productService.findAllProduct(page,pageSize), HttpStatus.OK);
     }
     @GetMapping("/fetch_suggestions")
@@ -57,7 +58,7 @@ public class ProductController implements ProductOpenApi {
         return new ResponseEntity<>(productService.fetchSuggestions(query), HttpStatus.OK);
     }
     @GetMapping("/queries")
-    public ResponseEntity<List<Product>> search(@RequestParam String query,@RequestParam(required = false) int page,@RequestParam(required = false) int pageSize){
+    public ResponseEntity<List<ProductDto>> search(@RequestParam String query,@RequestParam(required = false) int page,@RequestParam(required = false) int pageSize){
         return new ResponseEntity<>(productService.processSearch(query,page,pageSize), HttpStatus.OK);
     }
 }

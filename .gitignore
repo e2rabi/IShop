@@ -78,6 +78,7 @@ local.properties
 /ishop-modules/product-managment/build/**
 /ishop-modules/shipping-managment/build/**
 /ishop-modules/customer-managment/build/**
+/ishop-common/common-sdk/build/**
 ######################
 # Package Files
 ######################

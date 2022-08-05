@@ -1,5 +1,6 @@
 package com.errabi.ishop.controller.openapi;
 
+import com.errabi.common.model.ProductDto;
 import com.errabi.ishop.entities.Product;
 import com.errabi.common.exception.IShopNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,6 +28,6 @@ public interface ProductOpenApi {
              @ApiResponse(responseCode = "404",
                      description = "${api.response-codes.notFound.desc}",
                      content = { @Content(examples = { @ExampleObject(value = "") }) }) })
-     ResponseEntity<Product> getProductById(@PathVariable("productId") UUID productId) throws IShopNotFoundException ;
+     ResponseEntity<ProductDto> getProductById(@PathVariable("productId") UUID productId) throws IShopNotFoundException ;
 
 }
