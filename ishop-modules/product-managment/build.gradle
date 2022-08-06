@@ -6,6 +6,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.mapstruct:mapstruct:1.5.2.Final'
+	implementation group: 'org.liquibase', name: 'liquibase-core', version: '4.15.0'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.2.Final'
 	implementation group: 'org.postgresql', name: 'postgresql', version: '42.4.1'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
