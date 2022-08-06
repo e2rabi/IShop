@@ -27,9 +27,9 @@ jobs:
             - ~/.gradle/caches
           key: v1-gradle-cache-{{ checksum "build.gradle" }}
       - persist_to_workspace:
-          root: .
-          paths:
-            - build
+              root: .
+              paths:
+                  - .
   test:
     # Remove if parallelism is not desired
     parallelism: 2
