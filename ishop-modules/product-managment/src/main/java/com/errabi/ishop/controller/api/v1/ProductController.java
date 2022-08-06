@@ -2,7 +2,6 @@ package com.errabi.ishop.controller.api.v1;
 
 import com.errabi.common.model.ProductDto;
 import com.errabi.ishop.controller.openapi.ProductOpenApi;
-import com.errabi.common.exception.IShopNotFoundException;
 import com.errabi.ishop.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -26,7 +25,7 @@ public class ProductController implements ProductOpenApi {
 
     @Override
     @GetMapping("/{productId}")
-    public ResponseEntity<ProductDto> getProductById(@PathVariable("productId") UUID productId) throws IShopNotFoundException {
+    public ResponseEntity<ProductDto> getProductById(@PathVariable("productId") UUID productId)  {
         return new ResponseEntity<>(productService.findProductById(productId), HttpStatus.OK);
     }
 

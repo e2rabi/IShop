@@ -1,0 +1,22 @@
+version: 2
+jobs:
+  maven/test:
+    docker:
+      - image: circleci/openjdk:11
+
+    working_directory: ~/sbs
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: mvn -B clean install --file pom.xml
+      - run:
+          name: Run Tests
+          command: mvn verify
+      - store_test_results:
+          path: target/surefire-reports
+workflows:
+  maven_test:
+    jobs:
+      - maven/test
+  version: 2

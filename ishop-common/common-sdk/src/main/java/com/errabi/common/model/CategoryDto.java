@@ -11,13 +11,8 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductDto {
+public class CategoryDto {
     private UUID id;
-    private String name ;
+    private String name;
     private String description;
-    private String imageBase64;
-    private Double price ;
-    private String status ;
-    private UUID categoryId;
-    private String merchantId ;
 }

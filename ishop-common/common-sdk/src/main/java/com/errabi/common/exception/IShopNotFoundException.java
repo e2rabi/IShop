@@ -1,7 +1,12 @@
 package com.errabi.common.exception;
 
-public class IShopNotFoundException extends Exception{
-    public IShopNotFoundException(String message) {
-        super(message);
+import lombok.Data;
+
+@Data
+public class IShopNotFoundException extends RuntimeException{
+    private String errorCode;
+    private String errorDescription;
+    public IShopNotFoundException(String errorCode) {
+        super(errorCode);
     }
 }

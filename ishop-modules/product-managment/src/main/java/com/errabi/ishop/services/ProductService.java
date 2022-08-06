@@ -1,6 +1,8 @@
 package com.errabi.ishop.services;
 
+import com.errabi.common.exception.IShopException;
 import com.errabi.common.model.ProductDto;
+import com.errabi.common.utils.IShopErrors;
 import com.errabi.ishop.entities.Product;
 import com.errabi.common.exception.IShopNotFoundException;
 import com.errabi.ishop.repositories.ProductRepository;
@@ -8,6 +10,7 @@ import com.errabi.ishop.services.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.common.unit.Fuzziness;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
 import org.springframework.data.elasticsearch.core.query.IndexQueryBuilder;
@@ -22,10 +25,11 @@ import org.springframework.data.elasticsearch.core.query.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+
+import static com.errabi.common.utils.IShopErrors.PRODUCT_NOT_FOUND_ERROR_CODE;
 
 @Slf4j
 @Service
@@ -34,12 +38,16 @@ public class ProductService {
 
     private final ElasticsearchOperations elasticsearchOperations ;
     private final ProductRepository productRepository;
+    private final CategoryService categoryService;
     private final ProductMapper mapper;
 
     private static final  String PRODUCT_INDEX = "product-index";
 
     public ProductDto saveProduct(ProductDto dto) {
         log.info("Save new product {}",dto);
+       if(!categoryService.checkCategoryExist(dto.getCategoryId())){
+           throw new IShopException(IShopErrors.CATEGORY_NOT_FOUND_ERROR_CODE);
+       }
         var entity = mapper.toEntity(dto);
         var indexQuery = new IndexQueryBuilder()
                 .withId(entity.getId().toString())
@@ -49,7 +57,7 @@ public class ProductService {
         return mapper.toModel(entity);
     }
 
-    public ProductDto findProductById(UUID id) throws IShopNotFoundException {
+    public ProductDto findProductById(UUID id) {
         log.info("Get product by id : {}",id);
         QueryBuilder queryBuilder =
                 QueryBuilders
@@ -61,7 +69,7 @@ public class ProductService {
         if( productDtoSearchHits != null ){
             return mapper.toModel(productDtoSearchHits.getContent());
         } else{
-            throw new IShopNotFoundException("Product not found");
+            throw new IShopNotFoundException(PRODUCT_NOT_FOUND_ERROR_CODE);
         }
     }
 
@@ -74,12 +82,10 @@ public class ProductService {
     }
     public void updateProduct(UUID id, ProductDto dto) {
         log.info("Update product with id : {}",id);
-        Optional<Product> product = productRepository.findById(id);
-        product.ifPresentOrElse(e->{
-            product.get().setName(dto.getName());
-            productRepository.save(product.get());
-        },()->new IShopNotFoundException("Product not found"));
-
+        var product = productRepository.findById(id)
+                .orElseThrow(()->new IShopNotFoundException(IShopErrors.PRODUCT_NOT_FOUND_ERROR_CODE));
+        BeanUtils.copyProperties(dto,product);
+        productRepository.save(product);
     }
 
     public void deleteProduct(UUID id) {
