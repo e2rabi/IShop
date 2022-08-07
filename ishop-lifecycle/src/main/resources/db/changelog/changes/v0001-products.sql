@@ -1,0 +1,1 @@
+insert into category(id,name,description)values('7f603305-0a5d-4fa5-bedd-b9105945ee73','test','test');

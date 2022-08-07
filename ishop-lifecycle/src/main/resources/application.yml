@@ -1,0 +1,15 @@
+
+spring:
+  hikari:
+    connectionTimeout: 20000
+    maximumPoolSize: 5
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: admin
+  jpa:
+    show-sql: true
+    hibernate:
+      format_sql: true
+      ddl-auto: update
+      dialect: org.hibernate.dialect.PostgreSQLDialect

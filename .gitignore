@@ -81,6 +81,8 @@ local.properties
 /ishop-common/common-sdk/build/**
 /ishop-common/build/**
 /ishop-modules/build/**
+/ishop-lifecycle/build/**
+/ishop-gateway/build/**
 ######################
 # Package Files
 ######################
@@ -146,3 +148,4 @@ Desktop.ini
 .eslintcache
 /.idea/
 /ishop-common/build/
+/ishop-gateway/build/bootJarMainClassName
