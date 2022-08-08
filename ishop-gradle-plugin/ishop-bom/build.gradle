@@ -1,0 +1,77 @@
+apply plugin: 'java-platform'
+apply plugin: 'maven-publish'
+
+repositories{
+    mavenCentral()
+}
+
+javaPlatform{
+    allowDependencies();
+}
+
+dependencies {
+    api platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
+    runtime platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
+
+    constraints{
+        api "org.springdoc:springdoc-openapi-ui:1.6.9"
+    }
+}
+buildscript {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+        maven {
+            allowInsecureProtocol true
+            name ""
+            url  ""
+        }
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+        classpath "org.owasp:dependency-check-gradle:6.1.6"
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            url = "https://maven.pkg.github.com/e2rabi/IShop"
+            credentials {
+                username = "errabi.ayoub@gmail.com"
+                password = "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"
+            }
+        }
+    }
+
+    publications {
+        maven(MavenPublication) {
+            groupId = "com.errabi"
+            artifactId = "ishop-bom"
+            version = "0.0.1-SNAPSHOT"
+
+            pom.withXml {
+                asNode().children().last() + {
+                    resolveStrategy = Closure.DELEGATE_FIRST
+
+                    name 'My BOM'
+                    description 'IShop Bill of Materials (BOM)'
+
+                    dependencyManagement {
+                        dependencies {
+                            project.configurations.each { conf ->
+                                conf.dependencies.each { dep ->
+                                    dependency {
+                                        groupId "com.errabi"
+                                        artifactId "ishop-bom"
+                                        version "0.0.1-SNAPSHOT"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
