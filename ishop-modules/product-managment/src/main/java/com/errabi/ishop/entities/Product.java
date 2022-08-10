@@ -32,5 +32,5 @@ public class Product {
   @Field(type = FieldType.Text, name = "categoryId")
   private String categoryId;
   @Field(type = FieldType.Text, name = "merchantId")
-  private String merchantId ;
+  private UUID merchantId ;
 }

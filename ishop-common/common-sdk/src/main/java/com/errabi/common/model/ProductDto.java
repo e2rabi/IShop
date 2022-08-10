@@ -19,5 +19,5 @@ public class ProductDto {
     private Double price ;
     private String status ;
     private UUID categoryId;
-    private String merchantId ;
+    private UUID merchantId ;
 }

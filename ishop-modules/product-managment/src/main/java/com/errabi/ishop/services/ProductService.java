@@ -39,20 +39,21 @@ public class ProductService {
     private final ElasticsearchOperations elasticsearchOperations ;
     private final ProductRepository productRepository;
     private final CategoryService categoryService;
+    private final MerchantService merchantService;
     private final ProductMapper mapper;
 
     private static final  String PRODUCT_INDEX = "product-index";
 
-    public ProductDto saveProduct(ProductDto dto) {
-        log.info("Save new product {}",dto);
-       if(!categoryService.checkCategoryExist(dto.getCategoryId())){
-           throw new IShopException(IShopErrors.CATEGORY_NOT_FOUND_ERROR_CODE);
-       }
-        var entity = mapper.toEntity(dto);
+    public ProductDto saveProduct(ProductDto productDto) {
+        log.info("Save new product {}",productDto);
+
+        validateBusinessData(productDto);
+
+        var entity = mapper.toEntity(productDto);
         var indexQuery = new IndexQueryBuilder()
-                .withId(entity.getId().toString())
-                .withObject(entity)
-                .build();
+                                                .withId(entity.getId().toString())
+                                                .withObject(entity)
+                                                .build();
         elasticsearchOperations.index(indexQuery, IndexCoordinates.of(PRODUCT_INDEX));
         return mapper.toModel(entity);
     }
@@ -133,5 +134,16 @@ public class ProductService {
 
         searchSuggestions.getSearchHits().forEach(searchHit-> suggestions.add(searchHit.getContent().getName()));
         return suggestions;
+    }
+
+    private void validateBusinessData(ProductDto productDto){
+        if(!categoryService.checkCategoryExist(productDto.getCategoryId())){
+            log.info("Invalid category ID");
+            throw new IShopException(IShopErrors.CATEGORY_NOT_FOUND_ERROR_CODE);
+        }
+        if(!merchantService.checkMerchantExist(productDto.getMerchantId())){
+            log.info("Invalid Merchant ID");
+            throw new IShopException(IShopErrors.MERCHANT_NOT_FOUND_ERROR_CODE);
+        }
     }
 }
