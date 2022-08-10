@@ -21,7 +21,12 @@ dependencies {
 	testImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.2-M3-groovy-4.0'
 
 }
-
+test {
+	finalizedBy jacocoTestReport
+}
+jacocoTestReport {
+	dependsOn test
+}
 tasks.named('test') {
 	useJUnitPlatform()
 }
