@@ -83,6 +83,8 @@ local.properties
 /ishop-modules/build/**
 /ishop-lifecycle/build/**
 /ishop-gateway/build/**
+/ishop-gradle-plugin/ishop-bom/build/**
+/ishop-gradle-plugin/build/**
 ######################
 # Package Files
 ######################
@@ -149,3 +151,4 @@ Desktop.ini
 /.idea/
 /ishop-common/build/
 /ishop-gateway/build/bootJarMainClassName
+/ishop-gradle-plugin/ishop-bom/build/

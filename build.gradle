@@ -9,7 +9,8 @@ subprojects {
         mavenCentral()
     }
 }
-configure(subprojects.findAll {it.name != 'ishop-common' && it.name != 'ishop-modules' }) {
+configure(subprojects.findAll {it.name != 'ishop-common' &&
+        it.name != 'ishop-modules' && it.name != 'ishop-bom' && it.name !="ishop-gradle-plugin"}) {
     apply plugin: "java"
     apply plugin: "org.springframework.boot"
     apply plugin: "io.spring.dependency-management"
