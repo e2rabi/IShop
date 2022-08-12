@@ -16,6 +16,7 @@ class CategoryServiceTest extends Specification {
     @SpringBean
     private CategoryRepository categoryRepository = Mock(CategoryRepository.class)
 
+    @Ignore
     def "Should find category by id "() {
         given: 'A uuid for a category '
         categoryRepository.findById(_)>> Optional.of(Category.builder().name("LAPTOP").build())
@@ -24,6 +25,7 @@ class CategoryServiceTest extends Specification {
         then: 'Check the results'
         category.name == "LAPTOP"
     }
+    @Ignore
     def "Should check if category already exist "() {
         given: 'A uuid for an exist category '
         categoryRepository.findById(_)>> Optional.of(new Category())
@@ -32,6 +34,7 @@ class CategoryServiceTest extends Specification {
         then: 'Check the results'
         exist == true
     }
+    @Ignore
     def "Should check if category not exist "() {
         given: 'A uuid for an exist category '
         categoryRepository.findById(_)>> Optional.empty()
