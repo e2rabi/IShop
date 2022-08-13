@@ -10,12 +10,22 @@ javaPlatform{
 }
 
 dependencies {
+    // Import other BOMs
     api platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
     runtime platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
+    api platform("org.springframework.boot:spring-boot-dependencies:${springBootDependenciesVersion}")
 
-    constraints{
-        api "org.springdoc:springdoc-openapi-ui:1.6.9"
-    }
+    // Define version for dependencies not managed by the above BOMs
+     constraints {
+
+     }
+    api group: 'org.mapstruct',name: 'mapstruct',version: "${mapstructVersion}"
+    api group: 'org.projectlombok',name: 'lombok', version: "${lombokVersion}"
+    api group: 'org.projectlombok',name: 'lombok-mapstruct-binding', version: "${lombokMapstructBindingVersion}"
+    api "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+    api "org.springdoc:springdoc-openapi-ui:1.6.9"
+
+
 }
 buildscript {
     repositories {
@@ -30,6 +40,7 @@ buildscript {
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
         classpath "org.owasp:dependency-check-gradle:6.1.6"
+
     }
 }
 
@@ -39,7 +50,7 @@ publishing {
             url = "https://maven.pkg.github.com/e2rabi/IShop"
             credentials {
                 username = "errabi.ayoub@gmail.com"
-                password = "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"
+                password = "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"
             }
         }
     }
@@ -48,7 +59,7 @@ publishing {
         maven(MavenPublication) {
             groupId = "com.errabi"
             artifactId = "ishop-bom"
-            version = "0.0.1-SNAPSHOT"
+            version = "${ishopBomVersion}"
 
             pom.withXml {
                 asNode().children().last() + {
@@ -62,9 +73,9 @@ publishing {
                             project.configurations.each { conf ->
                                 conf.dependencies.each { dep ->
                                     dependency {
-                                        groupId "com.errabi"
-                                        artifactId "ishop-bom"
-                                        version "0.0.1-SNAPSHOT"
+                                        groupId "${dep.group}"
+                                        artifactId "${dep.name}"
+                                        version "${dep.version}"
                                     }
                                 }
                             }

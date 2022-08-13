@@ -1,7 +1,15 @@
 plugins {
-	id 'org.springframework.boot' version '2.7.2'  apply false
-	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+	id 'org.springframework.boot' apply false
+	id 'io.spring.dependency-management'
 	id 'java-library'
+}
+
+dependencies {
+
+	implementation enforcedPlatform("com.errabi:ishop-bom:${ishopBomVersion}")
+	implementation 'org.springframework.boot:spring-boot-starter'
+	api 'org.springdoc:springdoc-openapi-ui'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 jar {
 	enabled = true
@@ -9,14 +17,4 @@ jar {
 bootJar{
 	enabled = false
 }
-dependencyManagement {
-	imports {
-		mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
-	}
-}
 
-dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
-	api 'org.springdoc:springdoc-openapi-ui:1.6.9'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-}
