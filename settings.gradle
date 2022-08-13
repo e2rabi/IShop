@@ -8,6 +8,7 @@ include 'ishop-modules:order-managment'
 include 'ishop-modules:shipping-managment'
 include 'ishop-modules:authorization'
 include 'ishop-gradle-plugin:ishop-bom'
+include 'ishop-infrastructure'
 
 
 
