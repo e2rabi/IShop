@@ -13,8 +13,10 @@ spring:
          format_sql: true
          ddl-auto: create
          dialect: org.hibernate.dialect.PostgreSQLDialect
+
 elastic:
   hostname: 127.0.0.1:9200
+
 springdoc:
   api-docs:
     path: /api-docs
