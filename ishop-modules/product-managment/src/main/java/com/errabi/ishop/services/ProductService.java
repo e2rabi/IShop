@@ -2,6 +2,7 @@ package com.errabi.ishop.services;
 
 import com.errabi.common.exception.IShopException;
 import com.errabi.common.model.ProductDto;
+import com.errabi.common.service.IShopAbstractService;
 import com.errabi.common.utils.IShopErrors;
 import com.errabi.ishop.entities.Product;
 import com.errabi.common.exception.IShopNotFoundException;
@@ -34,7 +35,7 @@ import static com.errabi.common.utils.IShopErrors.PRODUCT_NOT_FOUND_ERROR_CODE;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ProductService {
+public class ProductService extends IShopAbstractService<ProductDto> {
 
     private final ElasticsearchOperations elasticsearchOperations ;
     private final ProductRepository productRepository;
@@ -136,7 +137,22 @@ public class ProductService {
         return suggestions;
     }
 
-    private void validateBusinessData(ProductDto productDto){
+    public void addProductToCategory(UUID categoryId,UUID productId){
+        log.info("add product {} to category {}",productId,categoryId);
+        var product = findProductById(productId);
+
+        validateBusinessData(product);
+        product.setCategoryId(categoryId);
+
+        updateProduct(productId,product);
+    }
+
+    public void removeProductFromCategory(UUID categoryId,UUID productId){
+      // todo to implement logic
+    }
+
+    @Override
+    protected void validateBusinessData(ProductDto productDto){
         if(!categoryService.checkCategoryExist(productDto.getCategoryId())){
             log.info("Invalid category ID");
             throw new IShopException(IShopErrors.CATEGORY_NOT_FOUND_ERROR_CODE);

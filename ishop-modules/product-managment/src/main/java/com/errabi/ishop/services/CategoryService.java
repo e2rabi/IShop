@@ -2,11 +2,14 @@ package com.errabi.ishop.services;
 
 import com.errabi.common.exception.IShopNotFoundException;
 import com.errabi.common.model.CategoryDto;
+import com.errabi.common.service.IShopAbstractService;
 import com.errabi.ishop.repositories.CategoryRepository;
 import com.errabi.ishop.services.mapper.CategoryMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +21,7 @@ import static com.errabi.common.utils.IShopErrors.CATEGORY_NOT_FOUND_ERROR_CODE;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CategoryService {
+public class CategoryService extends IShopAbstractService<CategoryDto> {
 
     private final CategoryRepository categoryRepository;
     private final CategoryMapper mapper;
@@ -33,9 +36,13 @@ public class CategoryService {
         log.info("Save new category {}",dto);
         return mapper.toModel(categoryRepository.save(mapper.toEntity(dto)));
     }
-    public List<CategoryDto> getAllCategories(){
+    public void deleteCategory(UUID id) {
+        log.info("Delete category with id {}",id);
+        categoryRepository.deleteById(id);
+    }
+    public List<CategoryDto> getAllCategories(int page,int pageSize){
         log.info("Get all categories");
-        return categoryRepository.findAll().stream()
+        return categoryRepository.findAll(PageRequest.of(page,pageSize)).stream()
                .map(mapper::toModel)
                .collect(Collectors.toList());
     }
@@ -51,5 +58,10 @@ public class CategoryService {
 
         BeanUtils.copyProperties(dto,category);
         categoryRepository.save(mapper.toEntity(category));
+    }
+
+    @Override
+    protected void validateBusinessData(CategoryDto categoryDto) {
+        throw new NotImplementedException();
     }
 }

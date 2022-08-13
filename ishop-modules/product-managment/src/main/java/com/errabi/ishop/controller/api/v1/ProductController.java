@@ -35,16 +35,16 @@ public class ProductController implements ProductOpenApi {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @DeleteMapping(("/{productId}"))
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteProduct(@PathVariable("productId") UUID productId){
-        productService.deleteProduct(productId);
+    public ResponseEntity<Void>  deleteProduct(@PathVariable("productId") UUID productId){
+         productService.deleteProduct(productId);
+         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping
     public ResponseEntity<ProductDto> saveProduct(@RequestBody  ProductDto  Product){
         var newProduct = productService.saveProduct(Product);
         var headers = new HttpHeaders();
-        headers.add("location","/api/v1/product/"+newProduct.getId().toString());
+        headers.add("location","/api/v1/products/"+newProduct.getId().toString());
         return new ResponseEntity<>(headers,HttpStatus.CREATED);
     }
 
@@ -59,5 +59,10 @@ public class ProductController implements ProductOpenApi {
     @GetMapping("/queries")
     public ResponseEntity<List<ProductDto>> search(@RequestParam String query,@RequestParam(required = false) int page,@RequestParam(required = false) int pageSize){
         return new ResponseEntity<>(productService.processSearch(query,page,pageSize), HttpStatus.OK);
+    }
+    @GetMapping("/{productId/categories/{categoryId}")
+    public ResponseEntity<Void> addProductToCategory(@PathVariable("productId") UUID productId,@PathVariable("categoryId") UUID categoryId){
+        productService.addProductToCategory(categoryId,productId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
