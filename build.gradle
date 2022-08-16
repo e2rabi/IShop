@@ -11,7 +11,7 @@ subprojects {
             url = uri("https://maven.pkg.github.com/e2rabi/IShop")
             credentials {
                 username = "errabi.ayoub@gmail.com"
-                password = "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"
+                password = "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"
             }
         }
     }

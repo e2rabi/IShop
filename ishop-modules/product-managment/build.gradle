@@ -24,7 +24,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.2-M3-groovy-4.0'
 	testImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.2-M3-groovy-4.0'
-
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	testRuntimeOnly 'com.h2database:h2'
 }
 test {
 	finalizedBy jacocoTestReport
