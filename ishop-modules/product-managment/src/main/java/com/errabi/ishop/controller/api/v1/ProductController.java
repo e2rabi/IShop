@@ -60,7 +60,7 @@ public class ProductController implements ProductOpenApi {
     public ResponseEntity<List<ProductDto>> search(@RequestParam String query,@RequestParam(required = false) int page,@RequestParam(required = false) int pageSize){
         return new ResponseEntity<>(productService.processSearch(query,page,pageSize), HttpStatus.OK);
     }
-    @GetMapping("/{productId/categories/{categoryId}")
+    @GetMapping("/{productId}/categories/{categoryId}")
     public ResponseEntity<Void> addProductToCategory(@PathVariable("productId") UUID productId,@PathVariable("categoryId") UUID categoryId){
         productService.addProductToCategory(categoryId,productId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

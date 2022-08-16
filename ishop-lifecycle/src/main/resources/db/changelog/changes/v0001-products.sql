@@ -9,3 +9,8 @@ insert into category(id,name,description,parent_category_id)values('9a603305-0a5
 insert into category(id,name,description,parent_category_id)values('9b603305-0a5d-4fa5-bedd-b9105945ee73','Home & Garden','Home & Garden',null);
 insert into category(id,name,description,parent_category_id)values('9c603305-0a5d-4fa5-bedd-b9105945ee73','Toys & Games','Toys & Games',null);
 insert into category(id,name,description,parent_category_id)values('9d603305-0a5d-4fa5-bedd-b9105945ee73','Vehicles & Parts','Vehicles & Parts',null);
+
+-- child categories
+insert into category(id,name,description,parent_category_id)values('10003305-0a5d-4fa5-bedd-b9105945ee73','Bird Food','Bird Food','7f603305-0a5d-4fa5-bedd-b9105945ee73');
+insert into category(id,name,description,parent_category_id)values('10103305-0a5d-4fa5-bedd-b9105945ee73','Cat Food','Cat Food','7f603305-0a5d-4fa5-bedd-b9105945ee73');
+insert into category(id,name,description,parent_category_id)values('10203305-0a5d-4fa5-bedd-b9105945ee73','Body Jewelry','Body Jewelry','8f603305-0a5d-4fa5-bedd-b9105945ee73');
