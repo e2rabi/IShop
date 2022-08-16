@@ -1,5 +1,6 @@
 package com.errabi.common.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +17,7 @@ public class CategoryDto {
     private UUID id;
     private String name;
     private String description;
+    @JsonIgnore
     private CategoryDto parentCategory;
     private List<CategoryDto> categories;
 
