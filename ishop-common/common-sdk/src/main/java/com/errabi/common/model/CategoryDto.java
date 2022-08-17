@@ -19,7 +19,4 @@ public class CategoryDto {
     private String description;
     @JsonIgnore
     private CategoryDto parentCategory;
-    private List<CategoryDto> categories;
-
-
 }

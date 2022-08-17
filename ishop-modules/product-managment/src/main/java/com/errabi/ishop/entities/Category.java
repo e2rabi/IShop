@@ -23,7 +23,4 @@ public class Category {
     @ManyToOne(optional=true, fetch= FetchType.LAZY)
     @JoinColumn(name="PARENT_CATEGORY_ID")
     private Category parentCategory;
-
-    @OneToMany(mappedBy="parentCategory")
-    private List<Category> categories;
 }
