@@ -1,6 +1,7 @@
 package com.errabi.ishop.stub;
 
 import com.errabi.common.model.CategoryDto;
+import com.errabi.ishop.entities.Category;
 
 import java.util.UUID;
 
@@ -18,6 +19,12 @@ public class CategoryStub {
     }
 
 
+    public static Category getEntity(){
+       return Category.builder()
+                    .id(id)
+                    .name("LAPTOP")
+                    .build();
+    }
     public static UUID getParentCategoryId(){
         return id;
     }
