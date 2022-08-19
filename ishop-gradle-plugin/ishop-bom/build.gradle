@@ -50,7 +50,7 @@ publishing {
             url = "https://maven.pkg.github.com/e2rabi/IShop"
             credentials {
                 username = "errabi.ayoub@gmail.com"
-                password = "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"
+                password = "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"
             }
         }
     }
