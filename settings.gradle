@@ -1,5 +1,6 @@
 rootProject.name = 'ishop'
 
+
 include 'ishop-lifecycle'
 include 'ishop-common:common-sdk'
 include 'ishop-modules:customer-managment'
