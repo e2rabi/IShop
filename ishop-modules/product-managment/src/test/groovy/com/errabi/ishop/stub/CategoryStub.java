@@ -20,10 +20,11 @@ public class CategoryStub {
 
 
     public static Category getEntity(){
-       return Category.builder()
-                    .id(id)
+       var category =  Category.builder()
                     .name("LAPTOP")
                     .build();
+       category.setId(id);
+       return category;
     }
     public static UUID getParentCategoryId(){
         return id;

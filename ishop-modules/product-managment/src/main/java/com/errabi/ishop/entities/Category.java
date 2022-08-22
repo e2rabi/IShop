@@ -6,8 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.UUID;
+
 
 @Data
 @Entity
@@ -15,9 +14,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "CATEGORY")
-public class Category {
-    @Id
-    private UUID id;
+public class Category extends BaseEntity {
+
     private String name;
     private String description;
     @ManyToOne(optional=true, fetch= FetchType.LAZY)

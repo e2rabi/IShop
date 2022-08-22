@@ -57,7 +57,7 @@ class CategoryServiceTest extends Specification {
         categoryService.updateCategory(updatedCategory,uuid);
         def results = categoryService.findCategoryById(uuid);
         then: 'Check the results'
-        results.getName()=="Animals"
+        results.getName()=="Animals & Pet Supplies"
     }
     def "Should delete parent category by id"() {
         given: 'An exist parents categories '

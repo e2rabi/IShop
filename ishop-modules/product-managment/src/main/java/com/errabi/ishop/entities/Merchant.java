@@ -1,15 +1,12 @@
 package com.errabi.ishop.entities;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.UUID;
 
 @Entity
 @Table(name = "MERCHANT")
-public class Merchant {
-    @Id
-    private UUID id;
+public class Merchant extends BaseEntity {
+
     private String name;
     private String activity;
     private String description;
