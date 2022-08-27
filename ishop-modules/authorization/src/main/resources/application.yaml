@@ -1,0 +1,21 @@
+spring:
+  #security: # for basic auth config
+  #  user:
+   #   name: admin
+   #   password: admin
+  datasource:
+    jdbcUrl: jdbc:h2:mem:testdb3;DB_CLOSE_DELAY=-1
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+logging:
+  level:
+    root: DEBUG

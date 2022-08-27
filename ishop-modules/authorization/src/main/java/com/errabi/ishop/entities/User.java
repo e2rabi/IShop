@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @Builder
+@Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
 public class User extends BaseEntity implements UserDetails, CredentialsContainer {
