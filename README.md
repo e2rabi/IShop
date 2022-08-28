@@ -16,6 +16,12 @@ This Application show how to secure a real-world application, not just another H
 - CSRF and CORS protection in spring security
 - Automatically Unlocking Accounts After Period of Time
 - Unit and integration test using JUnit 5
+# Product Management module :
+A microservice provides product management using spring boot. <br>
+- Search product,queries,suggestion using elasticSearch 
+- Manage product categories,merchants using postgresSql
+- Expose service through REST and Grpc API's
+- Unit test using groovy and spock framework
 <br><br>
 [![BCH compliance](https://bettercodehub.com/edge/badge/e2rabi/IShop?branch=main)](https://bettercodehub.com/)
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/e2rabi/IShop/tree/main.svg?style=svg&circle-token=bf598b1c63b0d194fcc9cb3da0f408b7e5bcb430)](https://dl.circleci.com/status-badge/redirect/gh/e2rabi/IShop/tree/main)
