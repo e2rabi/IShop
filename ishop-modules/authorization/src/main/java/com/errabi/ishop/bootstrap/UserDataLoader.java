@@ -6,6 +6,8 @@ import com.errabi.ishop.entities.User;
 import com.errabi.ishop.repositories.AuthorityRepository;
 import com.errabi.ishop.repositories.RoleRepository;
 import com.errabi.ishop.repositories.UserRepository;
+import com.errabi.ishop.services.TokenService;
+import com.nimbusds.jose.JOSEException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -14,6 +16,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Set;
 
@@ -24,12 +32,13 @@ public class UserDataLoader implements CommandLineRunner {
     private final UserRepository userRepository ;
     private final AuthorityRepository authorityRepository;
     private final RoleRepository roleRepository ;
+    private final TokenService tokenService;
     @Override
     public void run(String... args) throws Exception {
       loadUser();
     }
     @Transactional
-    public void loadUser(){
+    public void loadUser() throws CertificateException, KeyStoreException, IOException, NoSuchAlgorithmException, JOSEException, ParseException, UnrecoverableKeyException {
 
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         Authority createUser = authorityRepository.save(Authority.builder().permission("write_user").build());
@@ -59,5 +68,11 @@ public class UserDataLoader implements CommandLineRunner {
 
         userRepository.save(user1);
 
+        var token =  tokenService.newToken(user1);
+        log.info("token : {}",token);
+        var claim = tokenService.verify(token);
+        claim.forEach((k,v)->{
+            log.info(" k : {}  v : {}",k,v);
+        });
     }
 }

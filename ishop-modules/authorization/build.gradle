@@ -6,6 +6,8 @@ dependencies {
 	// dependency constraints in this build.
 	implementation enforcedPlatform("com.errabi:ishop-bom:${ishopBomVersion}")
 	implementation project(':ishop-common:common-sdk')
+	implementation 'com.nimbusds:nimbus-jose-jwt:9.24.3'
+	implementation 'com.google.guava:guava:11.0.2'
 
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.data:spring-data-elasticsearch'

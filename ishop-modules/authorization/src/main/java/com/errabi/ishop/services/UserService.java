@@ -2,6 +2,7 @@ package com.errabi.ishop.services;
 
 import com.errabi.common.exception.IShopNotFoundException;
 import com.errabi.common.model.UserDto;
+import com.errabi.ishop.entities.User;
 import com.errabi.ishop.repositories.UserRepository;
 import com.errabi.ishop.services.mappers.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -9,15 +10,22 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static com.errabi.common.utils.IShopErrors.USER_NOT_FOUND_ERROR_CODE;
 
+/**
+ * User security operations like login and logout, and CRUD operations on {@link User}.
+ *
+ * @author jerome
+ *
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserService  {
 
     private final UserRepository userRepository;
     private final UserMapper mapper;
@@ -35,5 +43,17 @@ public class UserService {
         return userRepository.findAll().stream()
                                         .map(mapper::toModel)
                                         .collect(Collectors.toList());
+    }
+
+    public User save(User user) {
+        return null;
+    }
+
+    public Optional<User> find(UUID id) {
+        return Optional.empty();
+    }
+
+    public Optional<User> findByUsername(Object username) {
+       return userRepository.findByUsername((String) username);
     }
 }
