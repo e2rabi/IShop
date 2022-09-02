@@ -7,6 +7,8 @@ import com.errabi.ishop.repositories.UserRepository;
 import com.errabi.ishop.services.mappers.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,13 +31,25 @@ public class UserService  {
 
     private final UserRepository userRepository;
     private final UserMapper mapper;
+    private final BCryptPasswordEncoder passwordEncoder;
+
+    public UserDto saveUser(UserDto dto){
+        log.debug("save user {}",dto);
+        dto.setPassword(passwordEncoder.encode(dto.getPassword()));
+        userRepository.save(mapper.toEntity(dto));
+        return dto;
+    }
 
 
-    public UserDto getUserById(UUID id){
+    public void deleteUserById(UUID id){
+        log.debug("delete user by id {}",id);
+        userRepository.deleteById(id);
+    }
+    public Optional<UserDto> getUserById(UUID id){
         log.debug("get user by id {}",id);
         var user = userRepository.findById(id)
                                        .orElseThrow(()-> new IShopNotFoundException(USER_NOT_FOUND_ERROR_CODE));
-        return mapper.toModel(user);
+        return Optional.of(mapper.toModel(user));
     }
 
     public List<UserDto> getAllUsers(){
@@ -45,15 +59,18 @@ public class UserService  {
                                         .collect(Collectors.toList());
     }
 
-    public User save(User user) {
-        return null;
-    }
+    public UserDto updateUser(UserDto dto,UUID id){
+        log.debug("update user by id {}",id);
+        var user = getUserById(id).get();
+        var newUser = new User();
 
-    public Optional<User> find(UUID id) {
-        return Optional.empty();
-    }
+        BeanUtils.copyProperties(dto,newUser);
+        userRepository.save(newUser);
 
+        return mapper.toModel(newUser);
+    }
     public Optional<User> findByUsername(Object username) {
-       return userRepository.findByUsername((String) username);
+        log.debug("find user by username {}",username);
+        return userRepository.findByUsername((String) username);
     }
 }

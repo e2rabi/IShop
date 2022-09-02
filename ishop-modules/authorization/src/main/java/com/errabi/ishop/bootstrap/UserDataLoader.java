@@ -47,8 +47,8 @@ public class UserDataLoader implements CommandLineRunner {
         Authority readUser   = authorityRepository.save(Authority.builder().permission("read_user").build());
 
         Role adminRole = roleRepository.save(Role.builder().name("ADMIN").build());
-        Role userRole = roleRepository.save(Role.builder().name("USER").build());
-        Role guestRole = roleRepository.save(Role.builder().name("GUEST").build());
+        Role userRole = roleRepository.save(Role.builder().name("ROLE_ADMIN").build());
+        Role guestRole = roleRepository.save(Role.builder().name("ROLE_GUEST").build());
 
         adminRole.setAuthorities(Set.of(createUser,updateUser,deleteUser,readUser));
         userRole.setAuthorities(Set.of(updateUser,readUser));
