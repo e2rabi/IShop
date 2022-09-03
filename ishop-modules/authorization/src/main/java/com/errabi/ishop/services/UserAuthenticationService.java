@@ -1,6 +1,7 @@
 package com.errabi.ishop.services;
 
 import com.errabi.common.exception.IShopException;
+import com.errabi.common.exception.IShopExceptionAuth;
 import com.errabi.common.model.AuthenticationRequestDto;
 import com.errabi.common.model.AuthenticationResponseDto;
 import com.errabi.ishop.entities.User;
@@ -34,7 +35,7 @@ public class UserAuthenticationService {
         User user =   userService
                 .findByUsername(requestDto.getUserName())
                 .filter(u -> passwordEncoder.matches(requestDto.getPassword(), u.getPassword()))
-                .orElseThrow(() -> new IShopException(USER_NOT_FOUND_ERROR_CODE,"invalid login and/or password"));
+                .orElseThrow(() -> new IShopExceptionAuth(USER_NOT_FOUND_ERROR_CODE,"invalid login and/or password"));
         // Verify otp code
 
         // Return JWT token

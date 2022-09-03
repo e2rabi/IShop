@@ -47,7 +47,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.provider = requireNonNull(provider);
     }
 
-
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(provider);

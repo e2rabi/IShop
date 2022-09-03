@@ -54,7 +54,6 @@ public class TokenService {
                                                 .subject(ISSUER)
                                                 .issuer(ISSUER)
                                                 .claim("userName",user.getUsername())
-                                                .claim("Roles",user.getRoles())
                                                 .claim("scope",user.getAuthorities())
                                                 .expirationTime(new Date(new Date().getTime() + 60 * expireInSc))
                                                 .build();

@@ -31,10 +31,11 @@ public class UserService  {
 
     private final UserRepository userRepository;
     private final UserMapper mapper;
-    private final BCryptPasswordEncoder passwordEncoder;
+
 
     public UserDto saveUser(UserDto dto){
         log.debug("save user {}",dto);
+        var passwordEncoder = new BCryptPasswordEncoder();
         dto.setPassword(passwordEncoder.encode(dto.getPassword()));
         userRepository.save(mapper.toEntity(dto));
         return dto;
