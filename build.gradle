@@ -5,8 +5,10 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.12.RELEASE'
     id "io.freefair.lombok" version "6.5.0.3"
     id 'net.researchgate.release' version '3.0.0'
+    id "com.google.cloud.tools.jib" version "3.3.0" apply false
 
 }
+
 release {
     failOnCommitNeeded = true
     failOnPublishNeeded = true
@@ -55,5 +57,16 @@ configure(subprojects.findAll {it.name != 'ishop-common' &&
     apply plugin: "io.spring.dependency-management"
     apply plugin: "io.freefair.lombok"
     apply plugin: "jacoco"
+    apply plugin: "com.google.cloud.tools.jib"
+
+    jib {
+        from {
+            image = "gcr.io/distroless/java:11"
+        }
+        to {
+            image = "e2rabi11/${project.name}:$version"
+        }
+    }
+
 }
 
