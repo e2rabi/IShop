@@ -22,6 +22,11 @@ A microservice provides product management using spring boot. <br>
 - Manage product categories,merchants using postgresSql
 - Expose service through REST and Grpc API's
 - Unit test using groovy and spock framework
+# Infrastructure module :
+A folder contains the deployment files for all microservices using :
+- K8s deployments,services,ingress
+- Docker compose 
+- Helm charts
 <br><br>
 [![BCH compliance](https://bettercodehub.com/edge/badge/e2rabi/IShop?branch=main)](https://bettercodehub.com/)
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/e2rabi/IShop/tree/main.svg?style=svg&circle-token=bf598b1c63b0d194fcc9cb3da0f408b7e5bcb430)](https://dl.circleci.com/status-badge/redirect/gh/e2rabi/IShop/tree/main)
