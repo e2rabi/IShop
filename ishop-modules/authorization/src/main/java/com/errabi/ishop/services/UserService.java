@@ -21,8 +21,6 @@ import static com.errabi.common.utils.IShopErrors.USER_NOT_FOUND_ERROR_CODE;
 /**
  * User security operations like login and logout, and CRUD operations on {@link User}.
  *
- * @author jerome
- *
  */
 @Slf4j
 @Service

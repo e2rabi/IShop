@@ -4,7 +4,7 @@ A simple e-commerce app to learn advanced topics in microservices distributed ar
 
 # Authorization module : 
 A microservice provides user management using spring security. <br>
-This Application show how to secure a real-world application, not just another Hello World Example.
+This Application show how to secure a real-world application.
 - Clean code 
 - JWT authentication filter
 - Password Security
