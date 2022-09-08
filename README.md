@@ -22,7 +22,9 @@ A microservice provides product management using spring boot. <br>
 - Manage product categories,merchants using postgresSql
 - Expose service through REST and Grpc API's
 - Unit test using groovy and spock framework
-# Infrastructure module :
+# IShop lifecycle module :
+- A springBoot application use liquibase to versioning and execute database creation and initialization scripts  
+# Infrastructure module : 
 A folder contains the deployment files for all microservices using :
 - K8s deployments,services,ingress
 - Docker compose 
