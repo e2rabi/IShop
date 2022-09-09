@@ -26,7 +26,7 @@ public class UserController {
 
     @GetMapping(value = "/{userId}",produces = {"application/json"})
     public ResponseEntity<UserDto> getUserById(@PathVariable("userId") UUID userId){
-        return ResponseEntity.ok(userService.getUserById(userId).get());
+        return ResponseEntity.ok(userService.getUserById(userId));
     }
 
     @DeleteMapping(value = "/{userId}",produces = {"application/json"})

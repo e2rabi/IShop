@@ -9,4 +9,5 @@ public class IShopErrors {
     public static final String PRODUCT_NOT_FOUND_ERROR_CODE = "1001";
     public static final String MERCHANT_NOT_FOUND_ERROR_CODE = "1002";
     public static final String ROLE_NOT_FOUND_ERROR_CODE = "1003";
+    public static final String AUTHORITY_NOT_FOUND_ERROR_CODE = "1004";
 }

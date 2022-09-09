@@ -48,14 +48,12 @@ public class RoleService {
         roleRepository.deleteById(uuid);
     }
 
-    public RoleDto updateRole(RoleDto roleDto,UUID id) {
+    public void updateRole(RoleDto roleDto,UUID id) {
         log.debug("update role by id {}",id);
         var role = getRoleById(id);
-        var newRole = new Role();
-        BeanUtils.copyProperties(role,newRole);
 
-        roleRepository.save(newRole);
-        return roleMapper.toModel(newRole);
+        BeanUtils.copyProperties(roleDto,role);
+        roleRepository.save(roleMapper.toEntity(role));
     }
 
     public RoleDto saveRole(RoleDto roleDto) {

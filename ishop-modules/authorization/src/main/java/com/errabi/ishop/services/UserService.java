@@ -44,11 +44,11 @@ public class UserService  {
         log.debug("delete user by id {}",id);
         userRepository.deleteById(id);
     }
-    public Optional<UserDto> getUserById(UUID id){
+    public UserDto getUserById(UUID id){
         log.debug("get user by id {}",id);
         var user = userRepository.findById(id)
                                        .orElseThrow(()-> new IShopNotFoundException(USER_NOT_FOUND_ERROR_CODE));
-        return Optional.of(mapper.toModel(user));
+        return mapper.toModel(user);
     }
 
     public List<UserDto> getAllUsers(){
@@ -60,13 +60,12 @@ public class UserService  {
 
     public UserDto updateUser(UserDto dto,UUID id){
         log.debug("update user by id {}",id);
-        var user = getUserById(id).get();
-        var newUser = new User();
+        var user = getUserById(id);
 
-        BeanUtils.copyProperties(dto,newUser);
-        userRepository.save(newUser);
+        BeanUtils.copyProperties(dto,user);
+        userRepository.save(mapper.toEntity(user));
 
-        return mapper.toModel(newUser);
+        return user;
     }
     public Optional<User> findByUsername(Object username) {
         log.debug("find user by username {}",username);

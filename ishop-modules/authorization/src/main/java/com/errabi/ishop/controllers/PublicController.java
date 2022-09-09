@@ -26,7 +26,7 @@ public class PublicController {
     }
 
     @PostMapping(value = "/",produces = {"application/json"})
-    public ResponseEntity<UserDto> updateUser(@RequestBody @Valid UserDto dto){
+    public ResponseEntity<UserDto> saveUser(@RequestBody @Valid UserDto dto){
         return ResponseEntity.ok(userService.saveUser(dto));
     }
 }
