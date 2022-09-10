@@ -35,7 +35,7 @@ public class UserDataLoader implements CommandLineRunner {
     private final TokenService tokenService;
     @Override
     public void run(String... args) throws Exception {
-      loadUser();
+      //loadUser();
     }
     @Transactional
     public void loadUser() throws CertificateException, KeyStoreException, IOException, NoSuchAlgorithmException, JOSEException, ParseException, UnrecoverableKeyException {

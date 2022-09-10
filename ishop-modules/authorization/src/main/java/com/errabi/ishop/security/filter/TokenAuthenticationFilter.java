@@ -62,13 +62,12 @@ public  class TokenAuthenticationFilter extends AbstractAuthenticationProcessing
             final Authentication authResult) throws IOException, ServletException {
         super.successfulAuthentication(request, response, chain, authResult);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(authentication != null && !authenticationTrustResolver.isAnonymous(authentication)){
-            if(authentication.getPrincipal() != null && authentication.getPrincipal() instanceof User){
-                User user = (User) authentication.getPrincipal();
-                chain.doFilter(request, response);
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
 
-            }
+        if(authentication != null && !authenticationTrustResolver.isAnonymous(authentication) &&
+                             authentication.getPrincipal() != null && authentication.getPrincipal() instanceof User){
+                //User user = (User) authentication.getPrincipal();
+                chain.doFilter(request, response);
         }
 
     }

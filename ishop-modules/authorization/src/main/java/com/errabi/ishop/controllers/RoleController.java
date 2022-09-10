@@ -4,8 +4,8 @@ import com.errabi.common.model.AuthorityDto;
 import com.errabi.common.model.RoleDto;
 import com.errabi.common.model.UserDto;
 import com.errabi.ishop.services.RoleService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +19,7 @@ import java.util.UUID;
 
 @CrossOrigin("*")
 @RestController
+@Tag(name = "Role controller")
 @RequestMapping("/api/v1/roles")
 @RequiredArgsConstructor
 public class RoleController {
@@ -42,14 +43,14 @@ public class RoleController {
     }
 
     @PutMapping("/{roleId}")
-    public ResponseEntity updateRole(@RequestBody @Valid RoleDto roleDto,@PathVariable("roleId")  UUID roleId){
+    public ResponseEntity<Void> updateRole(@RequestBody @Valid RoleDto roleDto,@PathVariable("roleId")  UUID roleId){
         roleService.updateRole(roleDto,roleId);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @PutMapping("/{roleId}/authorities")
-    public ResponseEntity addAuthoritiesToRole(@PathVariable("roleId")  UUID roleId,@RequestBody List<AuthorityDto> authorities){
+    public ResponseEntity<Void> addAuthoritiesToRole(@PathVariable("roleId")  UUID roleId,@RequestBody List<AuthorityDto> authorities){
         roleService.addAuthorityToRole(roleId,authorities);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @PostMapping
     public ResponseEntity<UserDto> saveRole(@RequestBody @Valid  RoleDto roleDto){

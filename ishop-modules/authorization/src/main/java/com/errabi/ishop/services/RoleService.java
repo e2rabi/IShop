@@ -5,7 +5,6 @@ import com.errabi.common.model.AuthorityDto;
 import com.errabi.common.model.RoleDto;
 import com.errabi.ishop.entities.Authority;
 import com.errabi.ishop.entities.Role;
-import com.errabi.ishop.repositories.AuthorityRepository;
 import com.errabi.ishop.repositories.RoleRepository;
 import com.errabi.ishop.services.mappers.AuthorityMapper;
 import com.errabi.ishop.services.mappers.RoleMapper;
@@ -16,12 +15,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static com.errabi.common.utils.IShopErrors.ROLE_NOT_FOUND_ERROR_CODE;
 
+/**
+ * User roles security operations like CRUD operations on {@link Role}.
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -29,7 +30,6 @@ public class RoleService {
 
     private final RoleRepository roleRepository;
     private final RoleMapper roleMapper ;
-    private final AuthorityRepository authorityRepository ;
     private final AuthorityMapper authorityMapper ;
 
     public List<RoleDto> getAllRoles() {
@@ -65,14 +65,15 @@ public class RoleService {
     public void addAuthorityToRole(UUID uuid, List<AuthorityDto> newAuthorities) {
         log.debug("add new authorities to role with id {}",uuid);
         if(CollectionUtils.isEmpty(newAuthorities))  {
-            List<Authority>  authorities =   authorityMapper.toEntity(newAuthorities);
+
+            var authorities =   authorityMapper.toEntity(newAuthorities);
             var role = roleMapper.toEntity(getRoleById(uuid));
 
-            Set<String> authoritiesNames = role.getAuthorities().stream()
-                    .map(Authority::getPermission)
-                    .collect(Collectors.toSet());
+            var authoritiesNames = role.getAuthorities().stream()
+                                                                .map(Authority::getPermission)
+                                                                .collect(Collectors.toSet());
 
-            List<Authority> authoritiesToAdd = authorities.stream()
+            var authoritiesToAdd = authorities.stream()
                                                             .filter(e->!authoritiesNames.contains(e.getPermission()))
                                                             .collect(Collectors.toList());
 

@@ -3,6 +3,7 @@ package com.errabi.ishop.controllers;
 import com.errabi.common.model.AuthorityDto;
 import com.errabi.common.model.UserDto;
 import com.errabi.ishop.services.AuthorityService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@Tag(name = "Authority controller")
 @RequestMapping("/api/v1/authorities")
 @RequiredArgsConstructor
 public class AuthorityController {
@@ -38,9 +40,9 @@ public class AuthorityController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateAuthority(@RequestBody @Valid AuthorityDto authorityDto,@PathVariable("id") UUID id){
+    public ResponseEntity<Void> updateAuthority(@RequestBody @Valid AuthorityDto authorityDto,@PathVariable("id") UUID id){
         authorityService.updateAuthority(authorityDto,id);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping

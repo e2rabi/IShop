@@ -5,6 +5,7 @@ import com.errabi.common.model.AuthenticationResponseDto;
 import com.errabi.common.model.UserDto;
 import com.errabi.ishop.services.UserAuthenticationService;
 import com.errabi.ishop.services.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import javax.validation.Valid;
 
 @Slf4j
 @RestController
+@Tag(name = "Public api controller")
 @RequestMapping("/api/v1/public")
 @RequiredArgsConstructor
 public class PublicController {

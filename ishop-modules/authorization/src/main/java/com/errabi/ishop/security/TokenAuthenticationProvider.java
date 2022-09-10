@@ -2,7 +2,6 @@ package com.errabi.ishop.security;
 
 import com.errabi.ishop.services.UserAuthenticationService;
 import lombok.AllArgsConstructor;
-import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
@@ -20,7 +19,6 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public  class TokenAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
-    @NonNull
     UserAuthenticationService auth;
 
     @Override

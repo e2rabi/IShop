@@ -1,6 +1,7 @@
 package com.errabi.ishop.services;
 
 import com.errabi.common.exception.IShopException;
+import com.errabi.ishop.entities.Role;
 import com.errabi.ishop.entities.User;
 
 import com.nimbusds.jose.*;
@@ -21,6 +22,9 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.Map;
 
+/**
+ * Token security operations like create,verify operations.
+ */
 @Service
 public class TokenService {
 
@@ -37,7 +41,7 @@ public class TokenService {
     @Value("${ishop.jwt.expire-seconds}")
     private long expireInSc;
 
-    public JWKSet getJwkSet() throws NoSuchAlgorithmException, KeyStoreException, IOException, CertificateException, UnrecoverableKeyException, JOSEException {
+    public JWKSet getJwkSet() throws NoSuchAlgorithmException, KeyStoreException, IOException, CertificateException, JOSEException {
         KeyStore keyStore = KeyStore.getInstance("JKS");
         keyStore.load(new FileInputStream(ResourceUtils.getFile(keystorePath)),keystorePassword);
 
@@ -64,8 +68,8 @@ public class TokenService {
                 claimsSet);
 
         signedJWT.sign(signer);
-        var token  = signedJWT.serialize();
-        return token;
+
+        return signedJWT.serialize();
     }
 
 
