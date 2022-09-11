@@ -3,7 +3,7 @@ package com.errabi.ishop.services;
 import com.errabi.common.exception.IShopException;
 import com.errabi.common.model.ProductDto;
 import com.errabi.common.service.IShopAbstractService;
-import com.errabi.common.utils.IShopErrors;
+import com.errabi.common.utils.IShopCodeError;
 import com.errabi.ishop.entities.Product;
 import com.errabi.common.exception.IShopNotFoundException;
 import com.errabi.ishop.repositories.ProductRepository;
@@ -30,7 +30,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static com.errabi.common.utils.IShopErrors.PRODUCT_NOT_FOUND_ERROR_CODE;
+import static com.errabi.common.utils.IShopCodeError.PRODUCT_NOT_FOUND_ERROR_CODE;
 
 @Slf4j
 @Service
@@ -85,7 +85,7 @@ public class ProductService extends IShopAbstractService<ProductDto> {
     public void updateProduct(UUID id, ProductDto dto) {
         log.info("Update product with id : {}",id);
         var product = productRepository.findById(id)
-                .orElseThrow(()->new IShopNotFoundException(IShopErrors.PRODUCT_NOT_FOUND_ERROR_CODE));
+                .orElseThrow(()->new IShopNotFoundException(IShopCodeError.PRODUCT_NOT_FOUND_ERROR_CODE));
         BeanUtils.copyProperties(dto,product);
         productRepository.save(product);
     }
@@ -155,11 +155,11 @@ public class ProductService extends IShopAbstractService<ProductDto> {
     protected void validateBusinessData(ProductDto productDto){
         if(!categoryService.checkCategoryExist(productDto.getCategoryId())){
             log.info("Invalid category ID");
-            throw new IShopException(IShopErrors.CATEGORY_NOT_FOUND_ERROR_CODE);
+            throw new IShopException(IShopCodeError.CATEGORY_NOT_FOUND_ERROR_CODE);
         }
         if(!merchantService.checkMerchantExist(productDto.getMerchantId())){
             log.info("Invalid Merchant ID");
-            throw new IShopException(IShopErrors.MERCHANT_NOT_FOUND_ERROR_CODE);
+            throw new IShopException(IShopCodeError.MERCHANT_NOT_FOUND_ERROR_CODE);
         }
     }
 }

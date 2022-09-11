@@ -1,13 +1,23 @@
 package com.errabi.ishop.stub;
 
+import com.errabi.common.model.AuthenticationRequestDto;
 import com.errabi.ishop.entities.User;
-
-import java.util.Date;
-import java.sql.Timestamp;
 import java.util.UUID;
 
 public final class UserStub {
 
+    public static AuthenticationRequestDto getLoginCredential(){
+        return AuthenticationRequestDto.builder()
+                .userName("admin")
+                .password("admin")
+                .build();
+    }
+    public static User getNewUser(){
+        var user = getUser();
+        user.setUsername("test");
+        user.setId(UUID.randomUUID());
+        return user;
+    }
     public static User getUser(){
         var user =  User.builder()
                 .password("admin")

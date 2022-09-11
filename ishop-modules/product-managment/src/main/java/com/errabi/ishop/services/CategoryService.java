@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static com.errabi.common.utils.IShopErrors.CATEGORY_NOT_FOUND_ERROR_CODE;
+import static com.errabi.common.utils.IShopCodeError.CATEGORY_NOT_FOUND_ERROR_CODE;
 
 @Slf4j
 @Service

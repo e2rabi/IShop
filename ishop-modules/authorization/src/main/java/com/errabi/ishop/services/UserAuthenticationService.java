@@ -17,7 +17,7 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.util.Optional;
 
-import static com.errabi.common.utils.IShopErrors.USER_NOT_FOUND_ERROR_CODE;
+import static com.errabi.common.utils.IShopCodeError.USER_NOT_FOUND_ERROR_CODE;
 
 /**
  * User security operations like Login,logout operations on {@link AuthenticationResponseDto}.

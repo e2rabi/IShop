@@ -32,7 +32,7 @@ public abstract class BaseIT {
 
     @BeforeEach
     public void setup() throws UnrecoverableKeyException, CertificateException, KeyStoreException, IOException, NoSuchAlgorithmException, JOSEException {
-
+        if(token == null)
         token =  tokenService.newToken(UserStub.getUser());
 
         mockMvc = MockMvcBuilders

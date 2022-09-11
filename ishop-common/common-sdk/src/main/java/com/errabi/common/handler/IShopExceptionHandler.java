@@ -25,6 +25,17 @@ public class IShopExceptionHandler {
                             .status(HttpStatus.UNAUTHORIZED.value())
                             .build();
     }
+    @ExceptionHandler(value = {IShopException.class})
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorMessage handleIShopException(IShopException ex, WebRequest request) {
+        return ErrorMessage.builder()
+                .code(ex.getErrorCode())
+                .description(ex.getErrorDescription())
+                .requestId(request.getContextPath())
+                .time(LocalDateTime.now().toString())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .build();
+    }
 
 }
 

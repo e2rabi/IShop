@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static com.errabi.common.utils.IShopErrors.AUTHORITY_NOT_FOUND_ERROR_CODE;
+import static com.errabi.common.utils.IShopCodeError.AUTHORITY_NOT_FOUND_ERROR_CODE;
 
 @Slf4j
 @Service

@@ -1,7 +1,7 @@
 package com.errabi.common.utils;
 
-public class IShopErrors {
-    private IShopErrors(){}
+public class IShopCodeError {
+    private IShopCodeError(){}
 
     public static final String USER_NOT_FOUND_ERROR_CODE = "0001";
 
@@ -10,4 +10,5 @@ public class IShopErrors {
     public static final String MERCHANT_NOT_FOUND_ERROR_CODE = "1002";
     public static final String ROLE_NOT_FOUND_ERROR_CODE = "1003";
     public static final String AUTHORITY_NOT_FOUND_ERROR_CODE = "1004";
+    public static final String USERNAME_ALREADY_EXIST_ERROR_CODE = "1005";
 }

@@ -1,8 +1,10 @@
 package com.errabi.ishop.services;
 
+import com.errabi.common.exception.IShopException;
 import com.errabi.common.exception.IShopNotFoundException;
 import com.errabi.common.model.RoleDto;
 import com.errabi.common.model.UserDto;
+import com.errabi.common.utils.IShopMessageError;
 import com.errabi.ishop.entities.Role;
 import com.errabi.ishop.entities.User;
 import com.errabi.ishop.repositories.RoleRepository;
@@ -23,7 +25,8 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static com.errabi.common.utils.IShopErrors.USER_NOT_FOUND_ERROR_CODE;
+import static com.errabi.common.utils.IShopCodeError.USERNAME_ALREADY_EXIST_ERROR_CODE;
+import static com.errabi.common.utils.IShopCodeError.USER_NOT_FOUND_ERROR_CODE;
 
 /**
  * User security operations like CRUD operations on {@link User}.
@@ -40,8 +43,10 @@ public class UserService  {
 
     public UserDto saveUser(UserDto dto){
         log.debug("save user {}",dto);
-        var passwordEncoder = new BCryptPasswordEncoder();
-        dto.setPassword(passwordEncoder.encode(dto.getPassword()));
+
+        validateUser(dto);
+        dto.setPassword(new BCryptPasswordEncoder().encode(dto.getPassword()));
+
         userRepository.save(mapper.toEntity(dto));
         return dto;
     }
@@ -103,5 +108,11 @@ public class UserService  {
             roleRepository.saveAll(rolesToAdd);
 
         }
+    }
+    private void validateUser(UserDto dto){
+       var user = userRepository.findByUsername(dto.getUsername());
+       if(user.isPresent()){
+           throw new IShopException(USERNAME_ALREADY_EXIST_ERROR_CODE, IShopMessageError.USERNAME_ALREADY_EXIST);
+       }
     }
 }

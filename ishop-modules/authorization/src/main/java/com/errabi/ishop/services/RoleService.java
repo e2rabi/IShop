@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static com.errabi.common.utils.IShopErrors.ROLE_NOT_FOUND_ERROR_CODE;
+import static com.errabi.common.utils.IShopCodeError.ROLE_NOT_FOUND_ERROR_CODE;
 
 /**
  * User roles security operations like CRUD operations on {@link Role}.
