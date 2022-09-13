@@ -19,6 +19,8 @@ dependencies {
      constraints {
 
      }
+    api "com.nimbusds:nimbus-jose-jwt:${nimbusJoseJwtVersion}"
+    api "com.google.guava:guava:${guavaVersion}"
     api group: 'org.mapstruct',name: 'mapstruct',version: "${mapstructVersion}"
     api group: 'org.projectlombok',name: 'lombok', version: "${lombokVersion}"
     api group: 'org.projectlombok',name: 'lombok-mapstruct-binding', version: "${lombokMapstructBindingVersion}"
@@ -50,7 +52,7 @@ publishing {
             url = "https://maven.pkg.github.com/e2rabi/IShop"
             credentials {
                 username = "errabi.ayoub@gmail.com"
-                password = "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"
+                password = "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"
             }
         }
     }
@@ -65,7 +67,7 @@ publishing {
                 asNode().children().last() + {
                     resolveStrategy = Closure.DELEGATE_FIRST
 
-                    name 'My BOM'
+                    name 'ISHOP BOM'
                     description 'IShop Bill of Materials (BOM)'
 
                     dependencyManagement {
