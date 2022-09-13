@@ -1,7 +1,7 @@
 package com.errabi.ishop.repositories;
 
 import com.errabi.ishop.entities.User;
-import com.errabi.ishop.security.task.LoginFailure;
+import com.errabi.ishop.entities.LoginFailure;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

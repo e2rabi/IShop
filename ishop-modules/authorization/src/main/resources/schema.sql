@@ -1,5 +1,6 @@
 drop table if exists authority CASCADE;
 drop table if exists login_failure CASCADE;
+drop table if exists login_success CASCADE;
 drop table if exists role CASCADE;
 drop table if exists role_authority CASCADE;
 drop table if exists user_role CASCADE;
@@ -8,6 +9,7 @@ drop sequence if exists hibernate_sequence;
 create sequence hibernate_sequence start with 1 increment by 1;
 
 create table authority (id varchar(36) not null, created_date timestamp, last_modified_date timestamp, version bigint, permission varchar(255), primary key (id));
+create table login_success (id integer not null, created_date timestamp, last_modified_date timestamp, source_ip varchar(255), user_name varchar(255), user_id varchar(36), primary key (id));
 create table login_failure (id integer not null, created_date timestamp, last_modified_date timestamp, source_ip varchar(255), user_name varchar(255), user_id varchar(36), primary key (id));
 create table role (id varchar(36) not null, created_date timestamp, last_modified_date timestamp, version bigint, name varchar(255), primary key (id));
 create table role_authority (role_id varchar(36) not null, authority_id varchar(36) not null, primary key (role_id, authority_id));

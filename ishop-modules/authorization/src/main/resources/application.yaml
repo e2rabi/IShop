@@ -20,6 +20,9 @@ logging:
   level:
     root: info
 ishop:
+  user:
+    lock:
+      attempts: 3
   jwt:
     keystore-passe: errabi
     key-passe: errabi

@@ -3,16 +3,20 @@ package com.errabi.ishop.services;
 import com.errabi.common.exception.IShopExceptionAuth;
 import com.errabi.common.model.AuthenticationRequestDto;
 import com.errabi.common.model.AuthenticationResponseDto;
+import com.errabi.ishop.entities.LoginSuccess;
 import com.errabi.ishop.entities.User;
 import com.errabi.ishop.repositories.LoginFailureRepository;
+import com.errabi.ishop.repositories.LoginSuccessRepository;
 import com.errabi.ishop.repositories.UserRepository;
-import com.errabi.ishop.security.task.LoginFailure;
+import com.errabi.ishop.entities.LoginFailure;
 import com.nimbusds.jose.JOSEException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -40,34 +44,46 @@ public class UserAuthenticationService {
     private final UserService userService;
     private final LoginFailureRepository loginFailureRepository ;
     private final UserRepository userRepository;
+    private final LoginSuccessRepository loginSuccessRepository;
+
+    @Value("${ishop.user.lock.attempts:3}")
+    private int attemptsNbBeforeLockAccount ;
 
     /**
      * Logs in with the given {@code username} and {@code password}.
      *
-     * @param requestDto
+     * @param authRequest
      * @return an {@link AuthenticationResponseDto} of a user when login succeeds
      */
-    public AuthenticationResponseDto login(AuthenticationRequestDto requestDto) throws UnrecoverableKeyException, CertificateException, KeyStoreException, IOException, NoSuchAlgorithmException, JOSEException {
-        log.info("Attempted username : {}",requestDto.getUserName());
-        var user =   userService
-                .findByUsername(requestDto.getUserName());
+    public AuthenticationResponseDto login(AuthenticationRequestDto authRequest, HttpServletRequest request) throws UnrecoverableKeyException, CertificateException, KeyStoreException, IOException, NoSuchAlgorithmException, JOSEException {
+        log.debug("Attempted username : {}",authRequest.getUserName());
 
-        // todo move to validate function
-        if(user.isPresent() && user.get().isAccountNonLocked()==false){
-            throw  new IShopExceptionAuth(USER_LOCKED_ERROR_CODE,USER_ACCOUNT_LOCKED);
-        }
-        if(user.isPresent() && !verifyUserPassword(requestDto.getPassword(),user.get().getPassword()) ){
-            attemptToLockUserAccount(user.get());
-            throw  new IShopExceptionAuth(USER_NOT_FOUND_ERROR_CODE,INVALID_USERNAME_OR_PASSWORD);
-        }else if(!user.isPresent()){
-            throw  new IShopExceptionAuth(USER_NOT_FOUND_ERROR_CODE,INVALID_USERNAME_OR_PASSWORD);
-        }
+        var validUser = validateUserCredentials(authRequest,request);
+        traceLoginSuccess(validUser,request);
         // Verify otp code
 
         // Return JWT token
         return  AuthenticationResponseDto.builder()
-                .jwt(tokens.newToken(user.get()))
+                .jwt(tokens.newToken(validUser))
                 .build();
+    }
+    private User validateUserCredentials(AuthenticationRequestDto authRequest,HttpServletRequest request){
+        log.debug("Validate user credentials ...");
+
+        var user =   userService
+                .findByUsername(authRequest.getUserName());
+
+        if(user.isPresent() && !user.get().isAccountNonLocked()){
+            throw  new IShopExceptionAuth(USER_LOCKED_ERROR_CODE,USER_ACCOUNT_LOCKED);
+        }
+        if(user.isPresent() && !verifyUserPassword(authRequest.getPassword(),user.get().getPassword()) ){
+            attemptToLockUserAccount(user.get(),request);
+            throw  new IShopExceptionAuth(USER_NOT_FOUND_ERROR_CODE,INVALID_USERNAME_OR_PASSWORD);
+        }else if(user.isEmpty()){
+            throw  new IShopExceptionAuth(USER_NOT_FOUND_ERROR_CODE,INVALID_USERNAME_OR_PASSWORD);
+        }
+
+        return user.get();
     }
     public Optional<User> findByToken(final String token) {
         try {
@@ -84,21 +100,32 @@ public class UserAuthenticationService {
         var passwordEncoder = new BCryptPasswordEncoder();
         return passwordEncoder.matches(requestPassword, userPassword);
     }
-    public void logout(final User user) {
-        // Nothing to do
+
+    private void traceLoginSuccess(User user, HttpServletRequest request){
+        log.debug("user login success {}",user);
+        var loginSuccess = LoginSuccess.builder().userName(user.getUsername())
+                                                                .user(user)
+                                                                .sourceIp(request.getRemoteAddr())
+                                                                .build();
+        loginSuccessRepository.save(loginSuccess);
     }
-    private void attemptToLockUserAccount(User user) {
-        log.debug("Verify user account status ...");
+    private void traceLoginFailed(User user, HttpServletRequest request){
+        log.debug("user login success {}",user);
         var  loginFailure = LoginFailure.builder()
                                                     .userName(user.getUsername())
                                                     .user(user)
+                                                    .sourceIp(request.getRemoteAddr())
                                                     .build();
         loginFailureRepository.save(loginFailure);
+    }
+    private void attemptToLockUserAccount(User user, HttpServletRequest request) {
+        log.debug("Verify user account status ...");
 
+        traceLoginFailed(user,request);
         List<LoginFailure> failures = loginFailureRepository.findAllByUserAndCreatedDateIsAfter(user,
                 Timestamp.valueOf(LocalDateTime.now().minusDays(1)));
-        // The number of failed attempts need to be externalized in a config file
-        if(failures.size()>3){
+
+        if(failures.size()>attemptsNbBeforeLockAccount){
             log.info("Locking user account ...");
             user.setAccountNonLocked(false);
             userRepository.save(user);

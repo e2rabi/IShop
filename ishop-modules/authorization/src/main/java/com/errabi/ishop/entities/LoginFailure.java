@@ -1,4 +1,4 @@
-package com.errabi.ishop.security.task;
+package com.errabi.ishop.entities;
 
 import com.errabi.ishop.entities.User;
 import lombok.*;
@@ -9,8 +9,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

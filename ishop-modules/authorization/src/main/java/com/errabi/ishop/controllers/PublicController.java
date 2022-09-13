@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Slf4j
@@ -23,8 +25,8 @@ public class PublicController {
     private final UserAuthenticationService userAuthenticationService;
 
     @PostMapping(value = "/login",produces = {"application/json"})
-    public ResponseEntity<AuthenticationResponseDto> login(@RequestBody AuthenticationRequestDto requestDto) throws Exception {
-        return ResponseEntity.ok(userAuthenticationService.login(requestDto));
+    public ResponseEntity<AuthenticationResponseDto> login(@RequestBody AuthenticationRequestDto requestDto, HttpServletRequest request) throws Exception {
+        return ResponseEntity.ok(userAuthenticationService.login(requestDto,request));
     }
 
     @PostMapping(value = "/",produces = {"application/json"})
