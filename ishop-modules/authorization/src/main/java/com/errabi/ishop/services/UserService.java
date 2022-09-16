@@ -11,6 +11,8 @@ import com.errabi.ishop.repositories.RoleRepository;
 import com.errabi.ishop.repositories.UserRepository;
 import com.errabi.ishop.services.mappers.RoleMapper;
 import com.errabi.ishop.services.mappers.UserMapper;
+import com.warrenstrange.googleauth.GoogleAuthenticator;
+import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -40,15 +42,29 @@ public class UserService  {
     private final RoleRepository roleRepository;
     private final UserMapper mapper;
     private final RoleMapper roleMapper;
+    private final GoogleAuthenticator googleAuthenticator;
 
+    @Transactional
     public UserDto saveUser(UserDto dto){
         log.debug("save user {}",dto);
 
         validateUser(dto);
         dto.setPassword(new BCryptPasswordEncoder().encode(dto.getPassword()));
 
+        var qrUrl = generateGoogleAuthSecretKey(dto);
+        dto.setQrUrl(qrUrl);
+
         userRepository.save(mapper.toEntity(dto));
         return dto;
+    }
+
+    private String generateGoogleAuthSecretKey(UserDto userDto){
+        log.info("Generate user google secret key ...");
+        googleAuthenticator.createCredentials(userDto.getUsername());
+        var qrUrl = GoogleAuthenticatorQRGenerator
+                .getOtpAuthURL("errabi",userDto.getUsername(),googleAuthenticator.createCredentials(userDto.getUsername()));
+        log.info("Google QR url : "+qrUrl);
+        return qrUrl;
     }
 
 

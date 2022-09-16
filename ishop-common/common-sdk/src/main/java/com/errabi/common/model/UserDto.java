@@ -23,6 +23,7 @@ public class UserDto {
     private  String phone ;
     private  String address ;
     private  Long version;
+    private  String qrUrl ;
     private  Timestamp createdDate;
     private  Timestamp lastModifiedDate;
     private Set<RoleDto> roles;

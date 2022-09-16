@@ -1,5 +1,6 @@
 package com.errabi.ishop.services;
 
+import com.errabi.common.exception.IShopException;
 import com.errabi.common.exception.IShopExceptionAuth;
 import com.errabi.common.model.AuthenticationRequestDto;
 import com.errabi.common.model.AuthenticationResponseDto;
@@ -10,10 +11,13 @@ import com.errabi.ishop.repositories.LoginSuccessRepository;
 import com.errabi.ishop.repositories.UserRepository;
 import com.errabi.ishop.entities.LoginFailure;
 import com.nimbusds.jose.JOSEException;
+import com.warrenstrange.googleauth.GoogleAuthenticator;
+import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,10 +31,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static com.errabi.common.utils.IShopCodeError.USER_LOCKED_ERROR_CODE;
-import static com.errabi.common.utils.IShopCodeError.USER_NOT_FOUND_ERROR_CODE;
-import static com.errabi.common.utils.IShopMessageError.INVALID_USERNAME_OR_PASSWORD;
-import static com.errabi.common.utils.IShopMessageError.USER_ACCOUNT_LOCKED;
+import static com.errabi.common.utils.IShopCodeError.*;
+import static com.errabi.common.utils.IShopMessageError.*;
 
 /**
  * User security operations like Login,logout operations on {@link AuthenticationResponseDto}.
@@ -45,6 +47,7 @@ public class UserAuthenticationService {
     private final LoginFailureRepository loginFailureRepository ;
     private final UserRepository userRepository;
     private final LoginSuccessRepository loginSuccessRepository;
+    private final GoogleAuthenticator googleAuthenticator;
 
     @Value("${ishop.user.lock.attempts:3}")
     private int attemptsNbBeforeLockAccount ;
@@ -61,7 +64,7 @@ public class UserAuthenticationService {
         var validUser = validateUserCredentials(authRequest,request);
         traceLoginSuccess(validUser,request);
         // Verify otp code
-
+        //validOtpCode(Integer.valueOf(authRequest.getOtpCode()),validUser);
         // Return JWT token
         return  AuthenticationResponseDto.builder()
                 .jwt(tokens.newToken(validUser))
@@ -132,5 +135,15 @@ public class UserAuthenticationService {
 
         }
     }
+    private void validOtpCode(Integer otp,User user ) {
+        log.info("Check opt code validity ...");
+        if( user.getUseGoogle2Fa() && otp != null) {
+            if (!googleAuthenticator.authorizeUser(user.getUsername(), otp)) {
+                throw new IShopException(USER_INVALID_OTP_ERROR_CODE,USER_INVALID_OTP);
+            }
+        }else {
+            throw new IShopException(USER_OTP_CODE_REQUIRED_ERROR_CODE,OTP_CODE_REQUIRED);
 
+        }
+    }
 }

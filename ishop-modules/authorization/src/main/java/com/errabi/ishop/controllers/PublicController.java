@@ -3,12 +3,16 @@ package com.errabi.ishop.controllers;
 import com.errabi.common.model.AuthenticationRequestDto;
 import com.errabi.common.model.AuthenticationResponseDto;
 import com.errabi.common.model.UserDto;
+import com.errabi.ishop.entities.User;
 import com.errabi.ishop.services.UserAuthenticationService;
 import com.errabi.ishop.services.UserService;
+import com.warrenstrange.googleauth.GoogleAuthenticator;
+import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +27,7 @@ public class PublicController {
 
     private final UserService userService;
     private final UserAuthenticationService userAuthenticationService;
+    private final GoogleAuthenticator googleAuthenticator;
 
     @PostMapping(value = "/login",produces = {"application/json"})
     public ResponseEntity<AuthenticationResponseDto> login(@RequestBody AuthenticationRequestDto requestDto, HttpServletRequest request) throws Exception {
