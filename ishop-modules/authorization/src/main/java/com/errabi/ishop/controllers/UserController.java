@@ -1,6 +1,7 @@
 package com.errabi.ishop.controllers;
 
 import com.errabi.common.model.RoleDto;
+import com.errabi.common.model.User2fResponseDto;
 import com.errabi.common.model.UserDto;
 import com.errabi.ishop.services.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -45,5 +46,9 @@ public class UserController {
     public ResponseEntity addRoleToUser(@PathVariable("id") UUID id,@RequestBody List<RoleDto> roles){
         userService.addRolesToUser(id,roles);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @PutMapping(value = "/{id}/register2f",produces = {"application/json"})
+    public ResponseEntity<User2fResponseDto> register2f(@PathVariable("id") UUID id){
+        return ResponseEntity.ok(userService.register2fUser(id));
     }
 }

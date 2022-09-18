@@ -26,6 +26,6 @@ public class UserDto {
     private  String qrUrl ;
     private  Timestamp createdDate;
     private  Timestamp lastModifiedDate;
-    private Set<RoleDto> roles;
+    //private Set<RoleDto> roles;
 
 }
