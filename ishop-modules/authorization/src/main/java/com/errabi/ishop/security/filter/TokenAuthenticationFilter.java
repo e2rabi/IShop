@@ -66,7 +66,6 @@ public  class TokenAuthenticationFilter extends AbstractAuthenticationProcessing
 
         if(authentication != null && !authenticationTrustResolver.isAnonymous(authentication) &&
                              authentication.getPrincipal() != null && authentication.getPrincipal() instanceof User){
-                //User user = (User) authentication.getPrincipal();
                 chain.doFilter(request, response);
         }
 

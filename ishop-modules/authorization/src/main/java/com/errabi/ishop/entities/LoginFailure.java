@@ -1,6 +1,5 @@
 package com.errabi.ishop.entities;
 
-import com.errabi.ishop.entities.User;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;

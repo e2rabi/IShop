@@ -24,7 +24,7 @@ public class AccountUnlockService {
         List<User> lockedUsers = userRepository
                 .findAllByAccountNonLockedAndLastModifiedDateIsBefore(false, Timestamp.valueOf(LocalDateTime.now().minusSeconds(38)));
 
-        if(lockedUsers.size()>0){
+        if(!lockedUsers.isEmpty()){
             log.info("Locked accounts found , unlocking ...");
             lockedUsers.forEach(user -> user.setAccountNonLocked(true));
 

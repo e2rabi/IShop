@@ -1,6 +1,5 @@
 package com.errabi.ishop.entities;
 
-import com.errabi.ishop.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
