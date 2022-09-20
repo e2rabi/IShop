@@ -1,6 +1,7 @@
 package com.errabi.ishop.stub;
 
 import com.errabi.common.model.AuthenticationRequestDto;
+import com.errabi.common.model.User2fResponseDto;
 import com.errabi.ishop.entities.User;
 import java.util.UUID;
 

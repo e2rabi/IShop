@@ -60,8 +60,8 @@ public class UserService  {
         log.debug("register 2f user by id {}",id);
          var user = userRepository.findById(id)
                               .orElseThrow(()-> new IShopNotFoundException(USER_NOT_FOUND_ERROR_CODE));
-        var qrUrl = generateGoogleAuthSecretKey(user.getUsername());
-        return User2fResponseDto.builder()
+         var qrUrl = generateGoogleAuthSecretKey(user.getUsername());
+         return User2fResponseDto.builder()
                 .username(user.getUsername())
                 .qrUrl(qrUrl)
                 .build();

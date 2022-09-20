@@ -51,7 +51,7 @@ public class UserControllerTest extends BaseIT{
 
 
     @Test
-    @Order(4) // todo to fix this test
+    @Order(6) // todo to fix this test
     void deleteUserById() throws Exception {
         mockMvc.perform(delete("/api/v1/users/6e57e08a-7fd9-4886-ac79-1934ab06d015")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -69,5 +69,13 @@ public class UserControllerTest extends BaseIT{
                 .andDo(print())
                 .andExpect(status().isOk());
     }
-
+    @Test
+    @Order(4)
+    void register2f() throws Exception {
+        mockMvc.perform(put("/api/v1/users/6e57e08a-7fd9-4886-ac79-1934ab06d015/register2f")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization","Bearer " +token))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
 }
