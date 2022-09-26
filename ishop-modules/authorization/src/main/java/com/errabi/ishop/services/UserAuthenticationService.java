@@ -62,9 +62,13 @@ public class UserAuthenticationService {
         log.debug("Attempted username : {}",authRequest.getUserName());
 
         var validUser = validateUserCredentials(authRequest,request);
-        traceLoginSuccess(validUser,request);
+
         // Verify otp code
-        //validOtpCode(Integer.valueOf(authRequest.getOtpCode()),validUser);
+        if(validUser.getGoogle2faRequired()){
+            validOtpCode(Integer.valueOf(authRequest.getOtpCode()),validUser);
+        }
+        traceLoginSuccess(validUser,request);
+
         // Return JWT token
         return  AuthenticationResponseDto.builder()
                 .jwt(tokens.newToken(validUser))
@@ -77,6 +81,7 @@ public class UserAuthenticationService {
                 .findByUsername(authRequest.getUserName());
 
         if(user.isPresent() && !user.get().isAccountNonLocked()){
+            traceLoginFailed(user.get(),request);
             throw  new IShopExceptionAuth(USER_LOCKED_ERROR_CODE,USER_ACCOUNT_LOCKED);
         }
         if(user.isPresent() && !verifyUserPassword(authRequest.getPassword(),user.get().getPassword()) ){
