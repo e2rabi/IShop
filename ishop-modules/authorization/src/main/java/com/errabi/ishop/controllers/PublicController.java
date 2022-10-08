@@ -24,7 +24,6 @@ public class PublicController {
 
     private final UserService userService;
     private final UserAuthenticationService userAuthenticationService;
-    private final GoogleAuthenticator googleAuthenticator;
 
     @PostMapping(value = "/login",produces = {"application/json"})
     public ResponseEntity<AuthenticationResponseDto> login(@RequestBody AuthenticationRequestDto requestDto, HttpServletRequest request) throws Exception {
