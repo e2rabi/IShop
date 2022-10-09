@@ -7,7 +7,7 @@ include 'ishop-modules:customer-managment'
 include 'ishop-modules:product-managment'
 include 'ishop-modules:order-managment'
 include 'ishop-modules:shipping-managment'
-include 'ishop-modules:authorization'
+include 'ishop-modules:ishop-authorization'
 include 'ishop-gradle-plugin:ishop-bom'
 include 'ishop-infrastructure'
 

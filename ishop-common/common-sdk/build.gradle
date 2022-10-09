@@ -8,6 +8,7 @@ dependencies {
 
 	implementation enforcedPlatform("com.errabi:ishop-bom:${ishopBomVersion}")
 	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	api 'org.springdoc:springdoc-openapi-ui'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

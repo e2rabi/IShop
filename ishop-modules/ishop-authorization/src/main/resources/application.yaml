@@ -29,3 +29,12 @@ ishop:
     key-alias: ishop
     keystore-path: classpath:keystore.jks
     expire-seconds: 30000
+
+management:
+  endpoint:
+      health:
+         probes:
+           enabled: true
+  health:
+    elasticsearch:
+      enabled: false
