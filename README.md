@@ -27,6 +27,7 @@ A microservice provides product management using spring boot. <br>
 # Infrastructure module : 
 A folder contains the deployment files for all microservices using :
 - K8s deployments,services,ingress
+- Liveness and Readiness probes using Springboot actuator health api
 - Docker compose 
 - Helm charts
 <br><br>
