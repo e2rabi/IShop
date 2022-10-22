@@ -72,6 +72,7 @@ public class UserAuthenticationService {
         // Return JWT token
         return  AuthenticationResponseDto.builder()
                 .jwt(tokens.newToken(validUser))
+                .useGoogle2f(String.valueOf(validUser.getUseGoogle2Fa()))
                 .build();
     }
     private User validateUserCredentials(AuthenticationRequestDto authRequest,HttpServletRequest request){

@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AuthenticationResponseDto {
+    private String useGoogle2f ;
     private String jwt ;
 }
