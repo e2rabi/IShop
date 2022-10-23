@@ -52,6 +52,11 @@ public class UserAuthenticationService {
     @Value("${ishop.user.lock.attempts:3}")
     private int attemptsNbBeforeLockAccount ;
 
+    public Boolean verifyOtp(AuthenticationRequestDto authRequest, HttpServletRequest request){
+        log.debug("Attempted otp verify for user : {}",authRequest.getUserName());
+        var validUser = validateUserCredentials(authRequest,request);
+        return validOtpCode(Integer.valueOf(authRequest.getOtpCode()),validUser);
+    }
     /**
      * Logs in with the given {@code username} and {@code password}.
      *
@@ -141,7 +146,7 @@ public class UserAuthenticationService {
 
         }
     }
-    private void validOtpCode(Integer otp,User user ) {
+    private boolean validOtpCode(Integer otp,User user ) {
         log.info("Check opt code validity ...");
         if( user.getUseGoogle2Fa() && otp != null) {
             if (!googleAuthenticator.authorizeUser(user.getUsername(), otp)) {
@@ -151,5 +156,6 @@ public class UserAuthenticationService {
             throw new IShopException(USER_OTP_CODE_REQUIRED_ERROR_CODE,OTP_CODE_REQUIRED);
 
         }
+        return true;
     }
 }

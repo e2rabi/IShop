@@ -30,6 +30,10 @@ public class PublicController {
         return ResponseEntity.ok(userAuthenticationService.login(requestDto,request));
     }
 
+    @PostMapping(value = "/verifyOtp",produces = {"application/json"})
+    public ResponseEntity<Boolean> verifyOtp(@RequestBody AuthenticationRequestDto requestDto, HttpServletRequest request) throws Exception {
+        return ResponseEntity.ok(userAuthenticationService.verifyOtp(requestDto,request));
+    }
     @PostMapping(value = "/",produces = {"application/json"})
     public ResponseEntity<UserDto> saveUser(@RequestBody @Valid UserDto dto){
         return ResponseEntity.ok(userService.saveUser(dto));
