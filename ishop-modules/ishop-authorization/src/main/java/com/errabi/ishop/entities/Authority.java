@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,8 +20,11 @@ public class Authority extends BaseEntity {
     private String permission ;
 
     @Singular
-    @JsonIgnore
     @ManyToMany(mappedBy = "authorities")
     private Set<Role> roles;
 
+    @JsonIgnore
+    public Set<Role> getRoles() {
+        return new HashSet<>(roles);
+    }
 }

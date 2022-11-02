@@ -28,7 +28,7 @@ import static org.apache.commons.lang3.StringUtils.removeStart;
 
 @Slf4j
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public  class TokenAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
+public class TokenAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
     private static final String BEARER = "Bearer";
 
     private final AuthenticationTrustResolver authenticationTrustResolver = new AuthenticationTrustResolverImpl();

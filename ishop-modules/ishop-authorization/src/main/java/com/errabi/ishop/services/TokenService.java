@@ -42,10 +42,10 @@ public class TokenService {
     private long expireInSc;
 
     public JWKSet getJwkSet() throws NoSuchAlgorithmException, KeyStoreException, IOException, CertificateException, JOSEException {
-        KeyStore keyStore = KeyStore.getInstance("JKS");
+        var keyStore = KeyStore.getInstance("JKS");
         keyStore.load(new FileInputStream(ResourceUtils.getFile(keystorePath)),keystorePassword);
 
-        JWK jwk = JWK.load(keyStore, keyAlias, keystorePassword);
+        var jwk = JWK.load(keyStore, keyAlias, keystorePassword);
         return new JWKSet(jwk);
     }
 

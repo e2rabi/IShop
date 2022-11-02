@@ -124,7 +124,7 @@ public class UserService  {
                                                         .map(Role::getName)
                                                         .collect(Collectors.toSet());
             var rolesToAdd = roles.stream()
-                                                .filter(e->!roleNames.contains(e.getName()))
+                                                .filter(e->!roleNames.isEmpty() && !roleNames.contains(e.getName()))
                                                 .collect(Collectors.toSet());
             rolesToAdd.forEach(e->{
                 e.setUsers(Set.of(user));

@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
-public class BeanConfig{
+public  class BeanConfig{
 
    private final GoogleCredentialRepository credentialRepository;
     @Bean

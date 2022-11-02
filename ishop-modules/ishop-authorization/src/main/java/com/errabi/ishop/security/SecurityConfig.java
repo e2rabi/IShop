@@ -30,7 +30,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled =true)
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public  class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final RequestMatcher PUBLIC_URLS = new OrRequestMatcher(
             new AntPathRequestMatcher("/api/v1/public/**"),

@@ -2,6 +2,7 @@ package com.errabi.ishop.stub;
 
 import com.errabi.common.model.RoleDto;
 
+import java.util.HashSet;
 import java.util.UUID;
 
 public final class RoleStub {
@@ -10,6 +11,7 @@ public final class RoleStub {
        return RoleDto.builder()
                        .id(UUID.randomUUID())
                        .name("demo")
+                       .authorities(new HashSet<>())
                        .build();
     }
 }

@@ -9,7 +9,6 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan(basePackages = "com.errabi.*")
 public class AuthorizationApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(AuthorizationApplication.class, args);
 	}

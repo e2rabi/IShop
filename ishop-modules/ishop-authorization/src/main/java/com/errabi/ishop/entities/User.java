@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -13,13 +14,15 @@ import java.util.stream.Collectors;
 @Entity
 @Getter
 @Setter
+@ToString
 @Builder
 @Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
 public class User extends BaseEntity implements UserDetails, CredentialsContainer {
-    private  String password;
 
+    @ToString.Exclude
+    private  String password;
     private  String username;
     private  String firstName ;
     private  String lastName ;
@@ -52,7 +55,7 @@ public class User extends BaseEntity implements UserDetails, CredentialsContaine
     @JoinTable(name = "user_role",joinColumns = {@JoinColumn(name = "USER_ID",referencedColumnName = "ID")},inverseJoinColumns = {
             @JoinColumn(name = "ROLE_ID",referencedColumnName = "ID")
     })
-    private Set<Role> roles ;
+    private Set<Role> roles = new HashSet<>();
 
 
     @Override
@@ -65,10 +68,11 @@ public class User extends BaseEntity implements UserDetails, CredentialsContaine
         return this.roles.stream()
                 .map(Role::getAuthorities)
                 .flatMap(Set::stream)
-                .map(authority->{
-                    return  new SimpleGrantedAuthority(authority.getPermission());
-                })
+                .map(authority-> new SimpleGrantedAuthority(authority.getPermission()))
                 .collect(Collectors.toSet());
     }
 
+    public Set<Role> getRoles() {
+        return new HashSet<Role>(roles);
+    }
 }

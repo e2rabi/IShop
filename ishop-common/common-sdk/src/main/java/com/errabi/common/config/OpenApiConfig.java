@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OpenApiConfig {
 
+    public static final String AUTHORIZATION_HEADER = "Authorization";
+
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()

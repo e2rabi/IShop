@@ -2,6 +2,7 @@ package com.errabi.ishop.controllers;
 
 import com.errabi.common.model.AuthenticationRequestDto;
 import com.errabi.common.model.AuthenticationResponseDto;
+import com.errabi.common.model.User2fResponseDto;
 import com.errabi.common.model.UserDto;
 import com.errabi.ishop.services.UserAuthenticationService;
 import com.errabi.ishop.services.UserService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.UUID;
 
 @Slf4j
 @RestController
