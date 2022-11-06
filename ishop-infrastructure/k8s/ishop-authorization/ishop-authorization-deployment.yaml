@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: ishop-authorization
-          image: e2rabi11/authorization:1.0.2-SNAPSHOT
+          image: e2rabi11/ishop-authorization:1.0.3-SNAPSHOT
           ports:
           - containerPort: 8080
           livenessProbe:
