@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ishop-authorization
+  namespace: dev
+  labels:
+    app: ishop-authorization
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ishop-authorization
+  template:
+    metadata:
+      labels:
+        app: ishop-authorization
+    spec:
+      containers:
+        - name: ishop-authorization
+          image: e2rabi11/ishop-authorization:1.0.3-SNAPSHOT
+          ports:
+          - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10

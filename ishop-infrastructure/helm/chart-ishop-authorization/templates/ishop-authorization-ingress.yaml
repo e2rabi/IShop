@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ishop-authorization-ingress
+  namespace: dev
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx-example
+  rules:
+    - http:
+        paths:
+          - path: /ishop-authorization
+            pathType: Prefix
+            backend:
+              service:
+                name: ishop-authorization-service
+                port:
+                  number: 80
