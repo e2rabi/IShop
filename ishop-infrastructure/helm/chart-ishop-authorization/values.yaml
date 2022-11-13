@@ -1,0 +1,5 @@
+service:
+  name: ishop-authorization-service
+image:
+   repository:  e2rabi11/ishop-authorization
+   tag : "1.0.3-SNAPSHOT"
