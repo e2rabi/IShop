@@ -1,1 +1,18 @@
 
+dependencies {
+
+	// Load bill of materials (BOM).
+	// The dependencies in the BOM will be
+	// dependency constraints in this build.
+	implementation enforcedPlatform("com.errabi:ishop-bom:${ishopBomVersion}")
+
+	implementation project(':ishop-common:common-sdk')
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.cloud:spring-cloud-starter-gateway:3.1.4'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test{
+	useJUnitPlatform()
+}

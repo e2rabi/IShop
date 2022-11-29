@@ -18,7 +18,7 @@ spring:
       path: /h2-console
 logging:
   level:
-    root: info
+    root: debug
 ishop:
   user:
     lock:
@@ -38,3 +38,6 @@ management:
   health:
     elasticsearch:
       enabled: false
+server:
+  servlet:
+    context-path: /ishop-authorization

@@ -1,0 +1,14 @@
+
+server:
+  port: 8081
+
+spring:
+  application:
+    name: ishop-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: login
+          uri: ${ISHOP_AUTHORIZATION_HOST:http://127.0.0.1:8080}
+          predicates:
+            - Path=/ishop-authorization/api/v1/public/login
