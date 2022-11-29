@@ -18,6 +18,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 public class UserControllerTest extends BaseIT{
 
     @Test
+    @Disabled
     @Order(1)
         // @WithMockUser("ayoub")
     void getAllUsers() throws Exception {
@@ -29,6 +30,7 @@ public class UserControllerTest extends BaseIT{
                  .andReturn();
     }
     @Test
+    @Disabled
     @Order(2)
     void getUserById() throws Exception {
         mockMvc.perform(get("/api/v1/users/6e57e08a-7fd9-4886-ac79-1934ab06d015")
@@ -51,6 +53,7 @@ public class UserControllerTest extends BaseIT{
 
 
     @Test
+    @Disabled
     @Order(6) // todo to fix this test
     void deleteUserById() throws Exception {
         mockMvc.perform(delete("/api/v1/users/6e57e08a-7fd9-4886-ac79-1934ab06d015")
@@ -60,6 +63,7 @@ public class UserControllerTest extends BaseIT{
                 .andExpect(status().isNoContent());
     }
     @Test
+    @Disabled
     @Order(3)
     void addRoleToUserById() throws Exception {
         mockMvc.perform(put("/api/v1/users/{id}/roles","6e57e08a-7fd9-4886-ac79-1934ab06d015")
@@ -70,6 +74,7 @@ public class UserControllerTest extends BaseIT{
                 .andExpect(status().isOk());
     }
     @Test
+    @Disabled
     @Order(4)
     void register2f() throws Exception {
         mockMvc.perform(put("/api/v1/users/6e57e08a-7fd9-4886-ac79-1934ab06d015/register2f")

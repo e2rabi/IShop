@@ -35,6 +35,7 @@ class PublicControllerTest extends BaseIT{
     }
     @Test
     @Order(3)
+    @Disabled
     void saveDuplicateUserTest() throws Exception {
         mockMvc.perform(post("/api/v1/public/")
                         .contentType(MediaType.APPLICATION_JSON)
