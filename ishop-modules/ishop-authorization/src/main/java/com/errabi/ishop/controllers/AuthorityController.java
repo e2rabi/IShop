@@ -5,6 +5,9 @@ import com.errabi.common.model.UserDto;
 import com.errabi.ishop.services.AuthorityService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +27,10 @@ public class AuthorityController {
     private final AuthorityService authorityService ;
 
     @GetMapping
-    public ResponseEntity<List<AuthorityDto>> getAllAuthorities(){
-        return new ResponseEntity<>(authorityService.getAllAuthorities(), HttpStatus.OK);
+    public ResponseEntity<Page<AuthorityDto>> getAllAuthoritiesWithPage(Pageable pageRequest){
+        return new ResponseEntity<>(authorityService.getAllAuthorities(pageRequest), HttpStatus.OK);
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<AuthorityDto> getAuthorityById(@PathVariable("id") UUID id){
@@ -55,6 +59,6 @@ public class AuthorityController {
                                                 .buildAndExpand(dto.getId())
                                                 .toUri();
         headers.setLocation(location);
-        return new ResponseEntity<>(headers,HttpStatus.CREATED);
+        return new ResponseEntity(dto,headers,HttpStatus.CREATED);
     }
 }

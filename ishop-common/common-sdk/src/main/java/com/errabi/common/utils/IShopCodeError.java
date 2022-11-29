@@ -14,4 +14,5 @@ public class IShopCodeError {
     public static final String ROLE_NOT_FOUND_ERROR_CODE = "1003";
     public static final String AUTHORITY_NOT_FOUND_ERROR_CODE = "1004";
     public static final String USERNAME_ALREADY_EXIST_ERROR_CODE = "1005";
+    public static final String AUTHORITY_ALREADY_EXIST = "1006";
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
@@ -20,7 +21,7 @@ public class Authority extends BaseEntity {
     private String permission ;
 
     @Singular
-    @ManyToMany(mappedBy = "authorities")
+    @ManyToMany(mappedBy = "authorities",fetch = FetchType.LAZY)
     private Set<Role> roles;
 
     @JsonIgnore

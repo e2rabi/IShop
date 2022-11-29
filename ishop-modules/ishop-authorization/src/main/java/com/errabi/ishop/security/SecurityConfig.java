@@ -38,7 +38,9 @@ public  class SecurityConfig extends WebSecurityConfigurerAdapter {
             new AntPathRequestMatcher("/v3/api-docs/**"),
             new AntPathRequestMatcher("/swagger-ui/**"),
             new AntPathRequestMatcher("/swagger-ui.html"),
-            new AntPathRequestMatcher("/actuator/**")
+            new AntPathRequestMatcher("/actuator/**"),
+            new AntPathRequestMatcher("/api/v1/authorities"),
+            new AntPathRequestMatcher("/api/v1/authorities/**")
     );
     private static final RequestMatcher PROTECTED_URLS = new NegatedRequestMatcher(PUBLIC_URLS);
 

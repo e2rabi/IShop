@@ -4,6 +4,7 @@ import com.errabi.common.exception.ErrorMessage;
 import com.errabi.common.exception.IShopException;
 import com.errabi.common.exception.IShopExceptionAuth;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -27,14 +28,17 @@ public class IShopExceptionHandler {
     }
     @ExceptionHandler(value = {IShopException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ErrorMessage handleIShopException(IShopException ex, WebRequest request) {
-        return ErrorMessage.builder()
-                .code(ex.getErrorCode())
-                .description(ex.getErrorDescription())
-                .requestId(request.getContextPath())
-                .time(LocalDateTime.now().toString())
-                .status(HttpStatus.BAD_REQUEST.value())
-                .build();
+    public ResponseEntity<ErrorMessage> handleIShopException(IShopException ex, WebRequest request) {
+        var error = ErrorMessage.builder()
+                                            .code(ex.getErrorCode())
+                                            .description(ex.getErrorDescription())
+                                            .requestId(request.getContextPath())
+                                            .time(LocalDateTime.now().toString())
+                                            .status(HttpStatus.BAD_REQUEST.value())
+                                            .build();
+        return  ResponseEntity.ok(error);
+
+
     }
 
 }

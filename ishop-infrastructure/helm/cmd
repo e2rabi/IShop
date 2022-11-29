@@ -10,3 +10,9 @@ helm history chart_name
 # to install ingress
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.0.4/deploy/static/provider/cloud/deploy.yaml
 # check ingress : http://kubernetes.docker.internal/
+
+
+# dockerize react app using dockerfile
+ docker build --tag ishop-ui-admin:1.0.3-SNAPSHOT .
+ docker run -it --rm -v ${PWD}:/app -v /app/node_modules -p 3001:3000  ishop-ui-admin:1.0.3-SNAPSHOT
+

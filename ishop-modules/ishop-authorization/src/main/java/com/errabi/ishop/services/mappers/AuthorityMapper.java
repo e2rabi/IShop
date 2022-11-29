@@ -3,6 +3,7 @@ package com.errabi.ishop.services.mappers;
 import com.errabi.common.model.AuthorityDto;
 import com.errabi.ishop.entities.Authority;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.NullValueCheckStrategy;
 
 import java.util.List;
