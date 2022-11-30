@@ -4,16 +4,16 @@ metadata:
   name: ishop-authorization-ingress
   namespace: dev
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "nginx"
 spec:
-  ingressClassName: nginx-example
   rules:
-    - http:
+    - host: ishop-errabi.com
+      http:
         paths:
-          - path: /ishop-authorization
-            pathType: Prefix
-            backend:
+          - backend:
               service:
                 name: ishop-authorization-service
                 port:
-                  number: 80
+                  number: 8080
+            path: /
+            pathType: Prefix

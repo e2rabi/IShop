@@ -8,8 +8,8 @@ helm list
 # to see history of a chart
 helm history chart_name
 # to install ingress
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.0.4/deploy/static/provider/cloud/deploy.yaml
 # check ingress : http://kubernetes.docker.internal/
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.0.4/deploy/static/provider/cloud/deploy.yaml
 
 
 # dockerize react app using dockerfile
