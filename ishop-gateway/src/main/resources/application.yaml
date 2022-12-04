@@ -9,6 +9,10 @@ spring:
     gateway:
       routes:
         - id: login
-          uri: ${ISHOP_AUTHORIZATION_HOST:http://127.0.0.1:8080}
+          uri: ${ISHOP_AUTHORIZATION_SERVICE_HOST:http://127.0.0.1:8080}
           predicates:
             - Path=/ishop-authorization/api/v1/public/login
+        - id: swagger
+          uri: ${ISHOP_AUTHORIZATION_SERVICE_HOST:http://127.0.0.1:8080}
+          predicates:
+            - Path=/ishop-authorization/swagger-ui/**,/ishop-authorization/v3/api-docs/**,/ishop-authorization/v3/api-docs/swagger-config/**

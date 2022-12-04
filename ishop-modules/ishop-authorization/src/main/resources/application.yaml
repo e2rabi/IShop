@@ -16,9 +16,13 @@ spring:
     console:
       enabled: true
       path: /h2-console
+springdoc:
+  swagger-ui:
+    config-url: /ishop-authorization/v3/api-docs/swagger-config
+    url: /ishop-authorization/v3/api-docs
 logging:
   level:
-    root: debug
+    root: info
 ishop:
   user:
     lock:

@@ -17,18 +17,18 @@ spec:
     spec:
       containers:
         - name: ishop-authorization
-          image: e2rabi11/ishop-authorization:1.0.3-SNAPSHOT
+          image: e2rabi11/ishop-authorization:1.0.4-SNAPSHOT
           ports:
           - containerPort: 8080
-          livenessProbe:
-            httpGet:
-              path: /actuator/health/liveness
-              port: 8080
-            initialDelaySeconds: 30
-            periodSeconds: 20
-          readinessProbe:
-            httpGet:
-              path: /actuator/health/readiness
-              port: 8080
-            initialDelaySeconds: 15
-            periodSeconds: 10
+#          livenessProbe:
+#            httpGet:
+#              path: /actuator/health/liveness
+#              port: 8080
+#            initialDelaySeconds: 3000
+#            periodSeconds: 2000
+#          readinessProbe:
+#            httpGet:
+#              path: /actuator/health/readiness
+#              port: 8080
+#            initialDelaySeconds: 1500
+#            periodSeconds: 10000

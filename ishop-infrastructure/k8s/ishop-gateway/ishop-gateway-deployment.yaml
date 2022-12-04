@@ -18,8 +18,11 @@ spec:
       containers:
         - name: ishop-gateway
           image: e2rabi11/ishop-gateway:1.0.4-SNAPSHOT
-          env:
-            - name: ISHOP_AUTHORIZATION_SERVICE_HOST
-              value: "http://192.168.65.4:30146"
+          envFrom:
+          - configMapRef:
+               name: ishop-gateway-config-env-file
+#          env:
+#            - name: ISHOP_AUTHORIZATION_SERVICE_HOST
+#              value: "http://ishop-authorization-service"
           ports:
           - containerPort: 8081
