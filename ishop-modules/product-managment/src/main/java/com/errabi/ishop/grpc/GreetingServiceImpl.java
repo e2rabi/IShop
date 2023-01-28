@@ -4,9 +4,9 @@ import com.errabi.ishop.GreeterServiceGrpc;
 import com.errabi.ishop.HelloReply;
 import com.errabi.ishop.HelloRequest;
 import io.grpc.stub.StreamObserver;
-import org.springframework.stereotype.Service;
+import net.devh.boot.grpc.server.service.GrpcService;
 
-@Service
+@GrpcService
 public class GreetingServiceImpl extends GreeterServiceGrpc.GreeterServiceImplBase {
 
     @Override

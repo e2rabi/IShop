@@ -35,6 +35,7 @@ dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.data:spring-data-elasticsearch'
+	implementation 'net.devh:grpc-server-spring-boot-starter:2.12.0.RELEASE'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
@@ -45,6 +46,7 @@ dependencies {
 	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 	annotationProcessor "org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}"
 
+	implementation group: 'com.google.guava', name: 'guava',version: '23.6-jre'
 	implementation group: 'org.postgresql', name: 'postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.2-M3-groovy-4.0'
