@@ -1,27 +1,22 @@
-package com.errabi.ishop.controller.api.v1;
+package com.errabi.ishop.controller.api;
 
 import com.errabi.common.model.CategoryDto;
 import com.errabi.ishop.controller.openapi.CategoryOpenApi;
 import com.errabi.ishop.services.CategoryService;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.UUID;
 
-import static lombok.AccessLevel.PRIVATE;
-
 @RestController
 @RequiredArgsConstructor
-@FieldDefaults(level = PRIVATE, makeFinal = true)
 @RequestMapping("/api/v1/categories")
 public class CategoryController implements CategoryOpenApi {
 
-    CategoryService categoryService;
+    private final CategoryService categoryService;
 
     @Override
     @PostMapping
@@ -29,7 +24,7 @@ public class CategoryController implements CategoryOpenApi {
         var newCategory = categoryService.saveCategory(categoryDto);
         var headers = new HttpHeaders();
         headers.add("location","/api/v1/categories/"+newCategory.getId().toString());
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(newCategory,headers, HttpStatus.CREATED);
     }
     @DeleteMapping(("/{categoryId}"))
     @ResponseStatus(HttpStatus.NO_CONTENT)

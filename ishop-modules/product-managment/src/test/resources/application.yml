@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    jdbcUrl: jdbc:h2:mem:testdb3;DB_CLOSE_DELAY=-1
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console

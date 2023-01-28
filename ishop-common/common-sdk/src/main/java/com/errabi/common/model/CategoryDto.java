@@ -13,7 +13,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryDto {
+public class CategoryDto extends AbstractRequest{
     private UUID id;
     private String name;
     private String description;

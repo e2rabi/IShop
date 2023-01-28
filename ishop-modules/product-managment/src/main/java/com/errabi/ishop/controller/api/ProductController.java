@@ -1,4 +1,4 @@
-package com.errabi.ishop.controller.api.v1;
+package com.errabi.ishop.controller.api;
 
 import com.errabi.common.model.ProductDto;
 import com.errabi.ishop.controller.openapi.ProductOpenApi;
