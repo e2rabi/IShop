@@ -45,7 +45,7 @@ public class ProductController implements ProductOpenApi {
         var newProduct = productService.saveProduct(Product);
         var headers = new HttpHeaders();
         headers.add("location","/api/v1/products/"+newProduct.getId().toString());
-        return new ResponseEntity<>(headers,HttpStatus.CREATED);
+        return new ResponseEntity<>(newProduct,headers,HttpStatus.CREATED);
     }
 
     @GetMapping("/")
