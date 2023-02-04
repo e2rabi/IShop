@@ -11,12 +11,14 @@ spring:
     show-sql: true
     hibernate:
          format_sql: true
-         ddl-auto: create
+         ddl-auto: create-drop
          dialect: org.hibernate.dialect.PostgreSQLDialect
 
 elastic:
   hostname: 127.0.0.1:9200
-
+grpc:
+  server:
+    port: 50010
 springdoc:
   api-docs:
     path: /api-docs

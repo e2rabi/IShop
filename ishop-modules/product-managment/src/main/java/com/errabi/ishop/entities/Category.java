@@ -1,9 +1,6 @@
 package com.errabi.ishop.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -14,6 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "CATEGORY")
+@EqualsAndHashCode(callSuper=false)
 public class Category extends BaseEntity {
 
     private String name;

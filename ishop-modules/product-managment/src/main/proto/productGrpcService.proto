@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option java_package = "com.errabi.ishop";
+option java_outer_classname = "Product";
+option java_multiple_files = true;
+
+import  "commonRpc.proto" ;
+service ProductService {
+    rpc addProduct (ProductRequest) returns (ProductResponse) {}
+}
+
+message ProductRequest {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    string imageBase64 = 4;
+    string price = 5;
+    string status = 6;
+    string categoryId = 7;
+    string merchantId = 8;
+}
+
+message ProductResponse {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    string imageBase64 = 4;
+    string price = 5;
+    string status = 6;
+    string categoryId = 7;
+    string merchantId = 8;
+    ResponseInfo responseInfo = 9;
+}

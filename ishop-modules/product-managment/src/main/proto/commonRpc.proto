@@ -1,0 +1,9 @@
+syntax = "proto3";
+option java_package = "com.errabi.ishop";
+
+message ResponseInfo{
+  string  responseId = 1;
+  string  returnStatus = 2;
+  string  errorCode = 3;
+  string  errorMessage  = 4;
+}
