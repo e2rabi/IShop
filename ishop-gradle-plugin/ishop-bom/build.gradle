@@ -26,6 +26,10 @@ dependencies {
     api group: 'org.projectlombok',name: 'lombok-mapstruct-binding', version: "${lombokMapstructBindingVersion}"
     api "org.mapstruct:mapstruct-processor:${mapstructVersion}"
     api "org.springdoc:springdoc-openapi-ui:1.6.9"
+    api "io.grpc:grpc-netty:${grpcVersion}"
+    api "io.grpc:grpc-protobuf:${grpcVersion}"
+    api "io.grpc:grpc-stub:${grpcVersion}"
+    api "com.google.protobuf:protobuf-java-util:${grpcProtobuf}"
 
 
 }
@@ -52,7 +56,7 @@ publishing {
             url = "https://maven.pkg.github.com/e2rabi/IShop"
             credentials {
                 username = "errabi.ayoub@gmail.com"
-                password = "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"
+                password = "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"
             }
         }
     }
